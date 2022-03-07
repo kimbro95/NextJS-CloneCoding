@@ -43,3 +43,15 @@ globals.css
 
 https://tailwindcss.com
 https://tailwind.build/classes - 클래스 검색 사이트
+
+
+
+#4.1 Test Drive part One - 4.2 Test Drive part Two
+-TailwindCSS
+ex) px-1
+뒤에 숫자가 붙으면 숫자(1)x 4 4px이 적용되고 rem은 1 / 4인 0.25rem으로 적용된다
+TailwindCSS는 rem 단위라서 반응형 웹을 만들기에도 편한다.
+
+클래스명에서 x는 left, right의 x축 y는 top, bottom의 y축을 의미한다.
+ex) px-1 : padding-left, padding-right
+    py-1 : padding-top, padding-bottom
