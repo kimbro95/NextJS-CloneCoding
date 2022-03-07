@@ -31,3 +31,15 @@ globals.css
 @tailwind components;
 @tailwind utilities;
 추가
+
+
+
+#4.0 Introduction
+-TailwindCSS
+클래스로 가득 찬 유틸리티 최초의 CSS프레임워크
+
+-Tailwind CSS IntelliSense (vscode 확장 프로그램)
+클래스명 자동완성 기능
+
+https://tailwindcss.com
+https://tailwind.build/classes - 클래스 검색 사이트
