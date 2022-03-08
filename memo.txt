@@ -97,3 +97,28 @@ ex) <button className="...ring-2 ring-blue-500"></button>
 
 참조
 https://tailwindcss.com/docs/ring-color
+
+
+
+#4.6 Modifiers for Lists
+first(:first-child) 자식요소 첫번째에 스타일을 지정
+last(:last-child) 자식요소 마지막번째에 스타일을 지정
+only(:only-child) 자식요소가 한 개일 경우 스타일 지정
+odd (:nth-child(odd)) 자식요소의 순서가 홀수일 때 스타일 지정
+even (:nth-child(even)) 자식요소의 순서가 짝수일 때스타일 지정
+
+참조
+https://tailwindcss.com/docs/hover-focus-and-other-states#first
+
+-empty (:empty)
+empth 수정자를 사용하여 콘텐츠가 없는 경우 스타일 지정
+ex) {["1", "2", "3", ""].map((v, i) => (
+        <li key={i} className="bg-green-400 py-1 empty:hidden">
+            {v}
+        </li>
+    ))}
+배열에 3번째 다음이 빈값이기 때문에 empty:hidden을 준다
+empty: hidden => display:none과 같다.
+
+참조
+https://tailwindcss.com/docs/hover-focus-and-other-states#empty
