@@ -122,6 +122,38 @@ const Home: NextPage = () => {
         <span className='hidden peer-valid:block peer-valid:text-teal-500'>Vaild</span>
         <input type="submit" value="login" className='bg-white'/>
       </form>
+
+      {/*
+        -details (open)
+        기본 HTML 문법
+        open: (open-{modifier})
+      */}
+      <details className='open:bg-violet-500'>
+        <summary className='cursor-pointer'>open/close</summary>
+        <span>open</span>
+      </details>
+
+      {/*
+        list: (list-{modifier})
+      */}
+      <ul className='list-disc marker:text-red-400'>
+        <li>hello</li>
+        <li>hello</li>
+        <li>hello</li>
+      </ul>
+
+      {/*
+        file: (file-{modifier})
+        modifier를 중첩하여 사용할 수 있다.
+        ex) file:hover:bg-white
+      */}
+      <input type="file" className='file:border-0 file:rounded-md file:bg-green-500 file:text-white'/>
+      <input type="file" className='file:border-0 file:rounded-md file:bg-green-500 file:hover:bg-white file:hover:text-black'/>
+
+      {/*
+        first-letter
+      */}
+      <p className='first-letter:text-5xl'>abcdefghi</p>
     </div>
   );
 }

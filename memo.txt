@@ -143,3 +143,26 @@ peer-focus, peer-required, peer-disabled와 같은 모든 유사 클래스 수�
 
 참조
 https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-sibling-state
+
+
+
+#4.8 More Modifiers
+-details
+HTML 요소이다 details는 요소가 "open" 상태일 때만 내부 정보를 보여주고 정보 공개 위젯을 생성한다.
+요약이나 레이블은 summary요소를 통해 제공할 수 있습니다.
+정보공개 위젯은 보통 레이블 옆의 작은 삼각형이 돌아가면서 open/close상태로 나뉜다.
+details요소의 첫 번째 자식이 summary요소라면 summary의 콘텐츠를 위젯의 레이블로 사용한다.
+ex) <details>
+        <summary>Hello Details</summary>
+        <span>Details</span>
+    </details>
+
+참조
+https://developer.mozilla.org/ko/docs/Web/HTML/Element/details
+
+-file
+파일 수정자를 사용하여 파일 입력의 버튼 스타일 지정 (file-{modifier})
+ex) file:bg-blue-400 file:py-4
+
+참조
+https://tailwindcss.com/docs/hover-focus-and-other-states?email=george%40krugerindustrial&password=Bosco#file-input-buttons
