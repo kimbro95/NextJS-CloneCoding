@@ -169,7 +169,7 @@ https://tailwindcss.com/docs/hover-focus-and-other-states?email=george%40krugeri
 
 
 
-#4.9 Responsive Modifiers
+#4.9 Responsive Modifiers - 4.10 Responsive Modifiers part Two
 -Responsive Design
 화면 크기를 기반으로 한 스타일 지정 ( sm, md, lg, xl, 2xl )
 sm: 최소길이가 640px 일 때
@@ -180,3 +180,10 @@ xl: 최소길이가 1280px 일 때
 
 참조
 https://tailwindcss.com/docs/responsive-design#overview
+
+-Viewport orientation
+portrait: 가로 모드 ex.portrait:bg-blue-400
+landscape: 세로 모드 ex.landscape: bg-orange-400
+
+참조
+https://tailwindcss.com/docs/hover-focus-and-other-states#viewport-orientation

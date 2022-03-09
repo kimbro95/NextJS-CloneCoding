@@ -2,26 +2,17 @@ import type { NextPage } from 'next'
 
 const Home: NextPage = () => {
   return (
-    <div className='bg-slate-400 py-24 px-10 grid gap-10'>
-      <div className='bg-white sm:bg-red-400 md:hover:bg-teal-400 lg:bg-violet-400 xl:bg-yellow-400 2xl:bg-orange-400 p-6 rounded-3xl shadow-2xl'>
+    <div className='bg-slate-400 xl:place-content-center py-24 px-10 grid gap-10 xl:grid-cols-3 lg:grid-cols-2'>
+      <div className='bg-white flex flex-col justify-between p-6 rounded-3xl shadow-2xl'>
         <span className='font-semibold text-2xl'>Select Item</span>
         <ul>
           {
-          [1, 2, 3, 4].map((i) => (
+          [1, 2].map((i) => (
           <div key={i} className='flex justify-between my-1 py-1 odd:bg-gray-300 even:bg-gray-400'>
             <span className='text-gray-500'>Grey Chair</span>
             <span className='font-semibold'>$20</span>
           </div>
           ))
-          }
-        </ul>
-        <ul>
-          {
-            ["1", "2", "3", ""].map((v, i) => (
-              <li key={i} className="bg-green-400 py-1 empty:hidden">
-                {v}
-              </li>
-            ))
           }
         </ul>
         <div className='flex justify-between border-t-2 border-dashed mt-2 pt-2'>
@@ -37,7 +28,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className="bg-white overflow-hidden rounded-3xl shadow-xl group">
-        <div className="bg-blue-500 p-6 pb-14">
+        <div className="portrait:bg-blue-300 landscape:bg-lime-400 p-6 pb-14 xl:pb-44">
           <span className="text-white text-2xl">Profile</span>
         </div>
         <div className="rounded-3xl p-6 bg-white relative -top-5">
@@ -59,7 +50,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-3xl shadow-xl">
+      <div className="bg-white p-6 rounded-3xl shadow-xl lg:col-span-2 xl:col-span-1">
         <div className="flex mb-5 justify-between items-center">
           <span className='text-2xl font-semibold'>←</span>
           <div className="space-x-3">
@@ -95,65 +86,6 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-
-      <form className='flex flex-col space-y-2 bg-yellow-400 p-5 focus-within:bg-green-400'>
-        <input type="text" placeholder='UserName' required className='required:border-2 border-violet-600' />
-        <input type="password" placeholder='Password' required className='invalid:bg-orange-500' />
-        <br/>
-        <input type="text" placeholder='UserName2' required className='placeholder-shown:bg-teal-500 placeholder:text-red-600' />
-        <input type="password" placeholder='Password2' disabled className='disabled:opacity-2' />
-        <br/>
-        <input type="text" placeholder='UserName3' required className='required:bg-red-500 invalid:bg-blue-600 valid:bg-violet-600' />
-        <input type="submit" value="login" className='bg-white'/>
-      </form>
-
-      {/* 
-        -peer 
-        peer를 선언할 때는 peer selector 보다 위에 작성해야한다.
-      */}
-      <form className="flex flex-col space-y-2 p-5 ">
-        <input 
-          type="text"
-          required
-          placeholder='UserName'
-          className='peer border p-1 border-gray-400 rounded-md'
-        />
-        <span className='hidden peer-invalid:block peer-invalid:text-red-400'>Invaild</span>
-        <span className='hidden peer-valid:block peer-valid:text-teal-500'>Vaild</span>
-        <input type="submit" value="login" className='bg-white'/>
-      </form>
-
-      {/*
-        -details (open)
-        기본 HTML 문법
-        open: (open-{modifier})
-      */}
-      <details className='open:bg-violet-500'>
-        <summary className='cursor-pointer'>open/close</summary>
-        <span>open</span>
-      </details>
-
-      {/*
-        list: (list-{modifier})
-      */}
-      <ul className='list-disc marker:text-red-400'>
-        <li>hello</li>
-        <li>hello</li>
-        <li>hello</li>
-      </ul>
-
-      {/*
-        file: (file-{modifier})
-        modifier를 중첩하여 사용할 수 있다.
-        ex) file:hover:bg-white
-      */}
-      <input type="file" className='file:border-0 file:rounded-md file:bg-green-500 file:text-white'/>
-      <input type="file" className='file:border-0 file:rounded-md file:bg-green-500 file:hover:bg-white file:hover:text-black'/>
-
-      {/*
-        first-letter
-      */}
-      <p className='first-letter:text-5xl'>abcdefghi</p>
     </div>
   );
 }
