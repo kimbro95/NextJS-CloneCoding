@@ -3,26 +3,27 @@ import type { NextPage } from 'next'
 const Home: NextPage = () => {
   return (
     <div className='bg-slate-400 xl:place-content-center py-24 px-10 grid gap-10 xl:grid-cols-3 lg:grid-cols-2'>
-      <div className='bg-white flex flex-col justify-between p-6 rounded-3xl shadow-2xl'>
-        <span className='font-semibold text-2xl'>Select Item</span>
+      <div className='bg-white dark:bg-black flex flex-col justify-between p-6 rounded-3xl shadow-2xl'>
+        <span className='dark:text-white font-semibold text-2xl'>Select Item</span>
         <ul>
           {
           [1, 2].map((i) => (
           <div key={i} className='flex justify-between my-1 py-1 odd:bg-gray-300 even:bg-gray-400'>
-            <span className='text-gray-500'>Grey Chair</span>
+            <span className='text-gray-500 dark:text-gray-600'>Grey Chair</span>
             <span className='font-semibold'>$20</span>
           </div>
           ))
           }
         </ul>
         <div className='flex justify-between border-t-2 border-dashed mt-2 pt-2'>
-          <span className='font-semibold'>Total</span>
-          <span className='font-semibold'>$40</span>
+          <span className='font-semibold dark:text-white'>Total</span>
+          <span className='font-semibold dark:text-white'>$40</span>
         </div>
         <button 
         className='bg-blue-500 display: block text-white rounded-lg mt-4 mx-auto w-3/4 py-3 
-        hover:bg-teal-500 hover:text-black
-        active:bg-yellow-500 focus:text-red-500'>
+        dark:hover:bg-black hover:bg-teal-500 dark:hover:text-white hover:text-black
+        active:bg-yellow-500 focus:text-red-500
+        dark:bg-black dark:border-white dark:border-2'>
           Checkout
         </button>
       </div>
