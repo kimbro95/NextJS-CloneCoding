@@ -217,3 +217,19 @@ module.export = {
 }
 참조
 https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually
+
+
+
+##################################
+### 4.12 Just In Time Compiler ###
+##################################
+-Migrating to the JIT engine
+TailwindCSS 엔진
+v3.0 이전: 거대한 CSS파일을 생성하고, 그 파일에 이미 정의해놓은 클래스들을 가져와 사용하는 방식
+이 경우에 코드 길이가 길고 클래스로 가득찬 파일을 가져와서 개발단계에 사용하기 때문에 매우 무겁고
+배보 전 purge를 해줘야하는 번거로움이있다.
+
+v3.0 이후: 사용자가 사용하는 스타일들만 그때 그때 생성해서 사용하는 방식
+여러 클래스들을 조합해서 사용할 수 있고, 매우 가볍고, 배포 전 purge를 해주지 않아도된다.
+참조
+https://tailwindcss.com/docs/upgrade-guide#migrating-to-the-jit-engine
