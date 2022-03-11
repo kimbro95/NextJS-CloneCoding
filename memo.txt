@@ -233,3 +233,33 @@ v3.0 이후: 사용자가 사용하는 스타일들만 그때 그때 생성해�
 여러 클래스들을 조합해서 사용할 수 있고, 매우 가볍고, 배포 전 purge를 해주지 않아도된다.
 참조
 https://tailwindcss.com/docs/upgrade-guide#migrating-to-the-jit-engine
+
+
+
+#############################################
+### 5.1 Auth part One - 5.2 Auth part Two ###
+#############################################
+-Plugins
+재사용 가능한 타사 플러그인 Tailwind 확장 개요 플러그인을 사용하려면
+CSS대신 JavaScripte를 사용하여 사용자의 스타일시트에 삽입할 Tawilwind 에 대한 스타일을 동록 할 수 있다.
+참조
+https://tailwindcss.com/docs/plugins
+
+-@tailwindcss/forms
+form 요소를 유틸리티로 쉽게 재정의할 수 있도록 하는 form 스타일에 대한 기본 재설정을 제공하는 플러그
+@tailwindcss/forms 플러그인은 유틸리티 클래스를 사용하여 form 요소의 스타일을 쉽게 지정할 수 있도록 하는 독창적인
+form reset layer를 추가한다.
+설치
+npm i -D @tailwindcss/forms
+
+⭐플러그인은 설치 후 tailwind.config.js에 plugins에 추가해야한다.⭐
+// tailwind.config.js
+module.exports = {
+    theme:{
+        ...
+    },
+    plugins:[require("@tailwindcss/forms")],
+}
+plugins안에 require(플러그인명)을 추가한다.
+참조
+https://tailwindcss.com/docs/plugins#forms
