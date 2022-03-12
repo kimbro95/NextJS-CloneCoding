@@ -263,3 +263,23 @@ module.exports = {
 plugins안에 require(플러그인명)을 추가한다.
 참조
 https://tailwindcss.com/docs/plugins#forms
+
+
+
+#######################
+### 5.3 Home Screen ###
+#######################
+-Heroicons
+TailwindCSS로부터 만들어진 손으로 만든 SVG아이콘
+참조
+https://heroicons.com/
+
+-Space Between ( space-x, space-y )
+자식 요소 사이의 공간을 제어하기 위한 유틸리티.
+
+space-x-{amount} 유틸리티를 사용하여 요소 사이의 수평공간(x축)을 제어한다.
+ex) space-x-2
+space-y-{amount} 유틸리티를 사용하여 요소 사이의 수직공관(y축)을 제어한다.
+ex) space-y-4
+참조
+https://tailwindcss.com/docs/space#add-vertical-space-between-children
