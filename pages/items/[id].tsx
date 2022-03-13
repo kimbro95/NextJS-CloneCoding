@@ -2,7 +2,7 @@ import { NextPage } from "next";
 
 const ItemDetail: NextPage = () => {
     return(
-    <div className="px-4 py-6">
+    <div className="px-4 py-16">
         <div className="mb-2">
             <div className="h-96 bg-slate-500" />
             <div className="flex items-center border-b border-t space-x-3 py-4">

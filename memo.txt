@@ -283,3 +283,18 @@ space-y-{amount} 유틸리티를 사용하여 요소 사이의 수직공관(y축
 ex) space-y-4
 참조
 https://tailwindcss.com/docs/space#add-vertical-space-between-children
+
+
+
+#################
+### 5.8 Chats ###
+#################
+-Divide Width
+엘리먼트 사이의 border width를 제어하기 위한 유틸리디
+divide-x => border-right-width: 1px; border-left-width: 0px;
+divide-x-2 => border-right-width: 2px; border-left-width: 0px;
+
+divide-y => border-top-width: 0px; border-bottom-width: 1px;
+divide-y-2 => border-top-width: 0px; border-bottom-width: 2px;
+참조
+https://tailwindcss.com/docs/divide-width
