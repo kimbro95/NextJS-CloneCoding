@@ -298,3 +298,19 @@ divide-y => border-top-width: 0px; border-bottom-width: 1px;
 divide-y-2 => border-top-width: 0px; border-bottom-width: 2px;
 참조
 https://tailwindcss.com/docs/divide-width
+
+
+
+#######################
+### 5.9 Chat Detail ###
+#######################
+-Top/Right/Bottom/left
+positioned된 요소의 배치를 제어하기 위한 유틸리티
+
+ex) inset-x-0 => left: 0px; right: 0px;
+    inset-x-2 => left: 0.5rem; /* 8px */ right: 0.5rem; /* 8px */
+
+    inset-y-0 => top: 0px; bottom: 0px;
+    inset-y-2 => top: 0.5rem; /* 8px */ bottom: 0.5rem; /* 8px */
+참조
+https://tailwindcss.com/docs/top-right-bottom-left
