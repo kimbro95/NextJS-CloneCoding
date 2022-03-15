@@ -25,7 +25,7 @@ const ChatDetail: NextPage = () => {
                 <div className="flex items-center relative">
                     <input
                         type="text"
-                        className="shadow-sm rounded-full w-full border-gray-400 pr-12
+                        className="shadow-sm rounded-full w-full border-gray-300 pr-12
                         focus:ring-orange-500 focus:outline-none focus:border-orange-500"
                     />
                     <div className="absolute inset-y-0 flex py-1.5 pr-1.5 right-0">

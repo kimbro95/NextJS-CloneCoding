@@ -332,3 +332,18 @@ ex) aspect-auto => aspect-ratio: auot;
 참조
 https://tailwindcss.com/docs/aspect-ratio
 https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
+
+
+
+###########################
+### 5.14 Streams Detail ###
+###########################
+-overflow scrollbar hide
+global.css
+body{
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+추가한다.
