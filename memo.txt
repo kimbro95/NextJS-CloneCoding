@@ -314,3 +314,21 @@ ex) inset-x-0 => left: 0px; right: 0px;
     inset-y-2 => top: 0.5rem; /* 8px */ bottom: 0.5rem; /* 8px */
 참조
 https://tailwindcss.com/docs/top-right-bottom-left
+
+
+
+####################
+### 5.13 Streams ###
+####################
+-Aspect Ratio
+요소의 종횡비를 제어하기 위한 유틸리티
+또는 대괄호를 사용하여 새로운 속성을 생성할 수 있다.
+
+ex) aspect-auto => aspect-ratio: auot;
+    aspect-square => aspect-ratio: 1/1;
+    aspect-video => aspect-ratio: 16/9;
+-aspect-ratio CSS
+종횡비 CSS속성은 자동 크기 및 기타 레이아웃 기능 계산에 사용되는 상자의 기본 종횡비를 설정한다.
+참조
+https://tailwindcss.com/docs/aspect-ratio
+https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio
