@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { cls } from "../libs/utils";
+import Input from "../components/input";
+import Button from "../components/button";
 
 export default function Enter() {
     const [method, setMethod] = useState<"email" | "phone">("email");
@@ -35,48 +37,34 @@ export default function Enter() {
                         </button>
                     </div>
                 </div>
-                <form className="flex flex-col mt-8">
-                    <label htmlFor="input" className="text-sm font-medium text-gray-700">
-                        {method === "email" ? "Email address" : null}
-                        {method === "phone" ? "Phone number" : null}
-                    </label>
-                    <div className="mt-1">
-                        {method === "email" ?
-                            <input
-                                id="input"
+                <form className="flex flex-col mt-4 space-y-4">
+                    {
+                        method === "email" ? (
+                            <Input
+                                name="email"
+                                label="Email adress"
                                 type="email"
-                                className="appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 
-                        focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-                                placeholder="Enter email..."
+                                kind="text"
                                 required
                             />
-                            : null}
-                        {method === "phone" ? (
-                            <div className="flex rounded-sm shadow-sm">
-                                <span className="flex items-center justify-center rounded-l-md select-none
-                    px-3 border border-r-0 border-gray-300 bg-gray-50 text-gray-500"
-                                >
-                                    +82
-                                </span>
-                                <input
-                                    id="input"
-                                    className="appearance-none w-full px-3 py-2 border border-gray-300 
-                        rounded-md rounded-l-none shadow-sm placeholder-gray-400 
-                        focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-                                    type="number"
-                                    required
-                                />
-                            </div>
-                        ) : null}
-                    </div>
-                    <button
-                        className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 mt-2
-                    border border-transparent rounded-md shadow-sm text-sm font-medium 
-                    focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none"
-                    >
-                        {method === "email" ? "Get login link" : null}
-                        {method === "phone" ? "Get one-time password" : null}
-                    </button>
+                        ) : null
+                    }
+                    {
+                        method === "phone" ? (
+                            <Input
+                                name="phone"
+                                label="Phone number"
+                                kind="phone"
+                                required
+                            />
+                        ) : null
+                    }
+                    {
+                        method === "email" ? <Button text={"Get Login Link"}></Button> : null
+                    }
+                    {
+                        method === "phone" ? <Button text={"Get one-time password"}></Button> : null
+                    }
                 </form>
                 <div className="mt-6">
                     <div className="relative">

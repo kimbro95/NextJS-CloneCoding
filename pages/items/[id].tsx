@@ -1,17 +1,18 @@
 import { NextPage } from "next";
+import Button from "../../components/button";
 import Layout from "../../components/layout";
 
 const ItemDetail: NextPage = () => {
     return (
         <Layout canGoBack>
-            <div className="px-4 py-0">
+            <div className="px-4 py-2">
                 <div className="mb-2">
                     <div className="h-96 bg-slate-500" />
-                    <div className="flex items-center border-b border-t space-x-3 py-4">
+                    <div className="flex items-center border-b border-t cursor-pointer space-x-3 py-4">
                         <div className="h-12 w-12 rounded-full bg-slate-400" />
                         <div>
                             <p className="text-md font-bold text-gray-800">Steve Jebs</p>
-                            <p className="text-xs font-medium cursor-pointer text-gray-500">View profile &rarr;</p>
+                            <p className="text-xs font-medium text-gray-500">View profile &rarr;</p>
                         </div>
                     </div>
                     <div className="mt-3 pb-4 border-b">
@@ -28,13 +29,7 @@ const ItemDetail: NextPage = () => {
                             motherfucker to get shot. You understand?
                         </p>
                         <div className="flex items-center justify-between space-x-3">
-                            <button
-                                className="flex-1 bg-orange-500 text-white font-medium
-                        focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-orange-500
-                        rounded-lg shadow-md py-3 hover:bg-orange-600"
-                            >
-                                Talk to seller
-                            </button>
+                            <Button large text="Talk to seller" />
                             <button
                                 className="flex items-center justify-center p-2  rounded-md
                         text-gray-400 hover:bg-gray-100 hover:text-gray-600
