@@ -382,3 +382,26 @@ https://nextjs.org/docs/api-reference/next/router#routerback
 클라이언트 측 전환을 처리합니다. 외부 URL에 대해 router.push를 사용할 필요가 없습니다. window.location은 이러한 경우에 더 적합합다.
 참조
 https://nextjs.org/docs/api-reference/next/router#routerpush
+
+
+
+###########################
+### 6.1 What is Prisma ###
+###########################
+-Prisma
+Node.js and TypeScript ORM ( Object Relational Mapping )
+JS or TS 와 DB 사이에 다리를 놓아줌 ( 번역기 역할을 한다고 생각하면된다. )
+
+Prisma를 사용하기 위해서는 먼저 Prisma에게 DB가 어떻게 생겼는지
+데이터의 모양을 설명해야한다.
+=> Schema.Prisma
+
+Prisma가 이런 타입에 관한 정보를 알고 있으면 client를 생성해줄 수 있음
+client를 이용하면 TS로 DB와 직접 상호작용이 가능하고 자동완성 제공하는
+
+Prisma Studio : Visual Database Browser, DB를 위한 관리자 패널같은 것이다.
+
+Prisma는 개발자가 PostgreSQL, MySQL, SQL Server, SQLite, MongoDB 오픈 소스 데이터베이스 도구를
+사용하여 더 빠르게 빌드하고 오류를 줄이는데 도움을 준다
+참조
+- https://www.prisma.io/
