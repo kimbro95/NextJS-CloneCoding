@@ -405,3 +405,28 @@ Prisma는 개발자가 PostgreSQL, MySQL, SQL Server, SQLite, MongoDB 오픈 소
 사용하여 더 빠르게 빌드하고 오류를 줄이는데 도움을 준다
 참조
 - https://www.prisma.io/
+
+
+
+########################
+### 6.2 Prisma Setup ###
+########################
+-Prisma 설치
+1. npm i prisma -D
+2. npx prisma init
+이 명령은 schema.prisma라는 파일과 프로젝트 루트에 .env파일을 포함하여 prisma라는 새 디렉토리를 생성한다.
+schema.prisma는 데이터베이스 연결과 Prisma Client 생성기가 있는 Prisma 스키마를 포함한다.
+.env는 환경 변수를 정의하기 위한 dotenv 파일이다.( DB를 연결할 때 사용된다. )
+schema.prisma 파일에서
+ex) datasource db {
+        provider = "mysql"
+        url      = env("DATABASE_URL")
+    }
+    provider를 사용할 DB로 바꿔야한다.
+
+-참조
+https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-typescript-mysql
+-Prisma Model 예시
+https://www.prisma.io/docs/concepts/components/prisma-schema
+-VSCode Prisma Extension
+https://marketplace.visualstudio.com/items?itemName=Prisma.prisma
