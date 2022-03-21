@@ -480,3 +480,46 @@ pscale connect carrot-market
 
 연결시 나오는 URL을 .env 파일에 적용하기
 ex) DATABASE_URL="mysql://127.0.0.1.@@@@/DB NAME"
+
+
+
+###############################
+### 6.5 Push To PlanetScale ###
+###############################
+-Prisma Client and schema preview features
+Prisma Client 및 Prisma 스키마에 대해 Preview features 플래그를 사용할 수 있다.
+참조
+https://www.prisma.io/docs/concepts/components/preview-features/client-preview-features\
+
+-Referential integrity (참조 무결성)
+어떤 다른 모델을 참조하는 경우 해당 모델이 반드시 존재해야한다.
+참조 무결성은 모든 참조가 유효함을 나타내는 데이터 세트의 속성이다.
+참조 무결성을 위해서는 한 레코드가 다른 레코드를 참조하는 경우 반드시 해당 참조하는 레코드가 존재해야 한다.
+ex) Post모델이 user필드를 정의하는 경우 User(모델)도 반드시 존재해야한다.
+참조
+https://www.prisma.io/docs/concepts/components/prisma-schema/relations/referential-integrity
+
+-datasource에서 referential integrity 설정
+활성화
+schema.prisma
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]    <-- this.line
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"               <-- this.line
+}
+두 라인을 추가해서 활성화해야 참조무결성여부 확인
+
+참조
+https://www.prisma.io/docs/concepts/components/prisma-schema/relations/referential-integrity#setting-the-referential-integrity-in-the-datasource
+
+-db push
+db push는 Prisma Migrate와 동일한 엔진을 사용하여 Prisma 스키마를 DB스키마와 동기화하여 스키마 프로토 타이밍에 가장 적합
+ex) npx prisma db push
+
+참조
+https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push
