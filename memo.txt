@@ -452,3 +452,31 @@ Vitess 장점
 - 쿠버네티스 네이티브
 - 구체화된 뷰
 - 온라인 스키마 마이그레이션
+
+
+
+#####################################
+### 6.4 Connecting to PlanetScale ###
+#####################################
+-PlanetScale CLI
+PlanetScale은 데이터베이스 이상이며 CLI는 복잡한 명령 이상이다.
+pscale 커맨드 라인을 사용하여 branch, deploy요청 및 기타 PlanetScale 개념을 손쉽게 사용할 수 있다.
+참조
+https://github.com/planetscale/cli
+
+PlanetScale CLI 설치(윈도우)
+1.Scoop설치 (윈도우용 커맨드 라인 설치 프로그램)
+- https://scoop.sh/
+2.scoop bucket add pscale https://github.com/planetscale/scoop-bucket.git
+3.scoop install pscale mysql
+4.scoop update pscale
+
+PlanetScale CLI를 사용하여 데이터베이스
+생성
+pscale database create ## DB NAME ## --region ap-northeast
+연결
+pscale connect carrot-market
+⭐커맨드창을 종료하면 안된다.
+
+연결시 나오는 URL을 .env 파일에 적용하기
+ex) DATABASE_URL="mysql://127.0.0.1.@@@@/DB NAME"
