@@ -523,3 +523,27 @@ ex) npx prisma db push
 
 참조
 https://www.prisma.io/docs/concepts/components/prisma-migrate/db-push
+
+
+
+#########################
+### 6.6 Prisma Client ###
+#########################
+-Prisma Client
+TypeScript 및 Node.js용 직관적인 데이터베이스 클라이언트
+Prisma Client는 생각하는 방식으로 구성하고 앱에 맞춤화된 유형으로 Prisma스키마에서 자동 생성되는 쿼리 빌더이다.
+직관적인 API로 설계되어있다.
+
+npm install prisma --save-dev
+npx prisma
+
+npm install @prisma/client
+ex) import { PrismaClient } from '@prisma/client'
+    const prisma = new PrismaClient()
+
+    const newUser = awaut prisma.user.create({
+        data:{
+            email: "hi@naver.com",
+            name" "hello",
+        }
+    })
