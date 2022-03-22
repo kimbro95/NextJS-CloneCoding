@@ -581,3 +581,19 @@ https://nextjs.org/docs/api-routes/introduction
 사용하기 쉬운 유효성 검사를 통해 성능이 뛰어나고 유연하며 확장 가능한 form이다
 참조
 https://react-hook-form.com/
+
+
+
+##############################
+### 7.1 Making Forms Alone ###
+##############################
+-React Hook Form설치
+현재 react18 rc 버전 
+npm i react-hook-form --legacy-peer-deps
+
+react18 정식 출시 후 react hook form도 업데이트 완료시
+npm i react-hook-form
+
+참조
+https://react-hook-form.com/get-started
+https://www.npmjs.com/package/react-hook-form
