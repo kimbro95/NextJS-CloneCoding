@@ -652,3 +652,36 @@ onError( SubmitErrorHandler ) <-- 에러 콜백
 (errors : Object, e?: Event ) => void
 참조
 https://react-hook-form.com/api/useform/handlesubmit
+
+
+
+##################
+### 7.5 Errors ###
+##################
+-validate
+유효성을 검사할 인수로 콜백 함수를 전달하거나 콜백 함수의 개체를 전달하며 모든 유효성을 검사할 수 있다.
+ex) <input
+        {...register("test", {
+            validate : value => value === '1'
+        })}
+    />
+ex2)<input
+        {...register("email", {
+            required : "Email is required",
+            validate : {
+                checkGamil : (value) => !value.inclueds("@gmail.com") ? "" : "Gmail is not allowed",
+            }
+        })}  
+    />
+참조
+https://react-hook-form.com/api/useform/register/
+
+-mode
+mode: onChange | onBlur | onSubmit | onTouched | all = 'onSubmit'
+이 옵션을 사용하면 사용자가 form을 제출하기 전에 유효성 검사를 할 수 있다.
+onTouched
+유효성 검사는 첫 번째 blur 이벤트에서 트리거됩니다. 그 후에는 모든 change 이벤트에서 트리거됩니다.
+all
+blur 및 change 이벤트에서 유효성 검사가 트리거됩니다.
+참조
+https://react-hook-form.com/api/useform#props
