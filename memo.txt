@@ -616,3 +616,30 @@ ex) import { useForm } from 'react-hook-form';
     />
 참조
 https://react-hook-form.com/api/useform/register
+
+
+
+######################
+### 7.3 Validation ###
+######################
+-register 옵션
+required : string | { value : boolean, message : string }
+ex) <input 
+        {...register("test",{
+            required : 'erroe message;,
+        })}
+    />
+참조
+https://react-hook-form.com/api/useform/register
+
+-handleSubmit
+이 함수는 form 유효성 검사가 성공하면 form 데이터를 수신한다.
+ex) form onSubmit={ handleSubmit( onSubmit, onError ) }
+
+onSubmit( SubmitHandler ) <-- 성공시 콜백
+(data : Object, e?: Event ) => void
+
+onError( SubmitErrorHandler ) <-- 에러 콜백
+(errors : Object, e?: Event ) => void
+참조
+https://react-hook-form.com/api/useform/handlesubmit
