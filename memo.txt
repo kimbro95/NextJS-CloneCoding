@@ -619,14 +619,23 @@ https://react-hook-form.com/api/useform/register
 
 
 
-######################
-### 7.3 Validation ###
-######################
+################################################
+### 7.3 Validation - 7.4 Validation part Two ###
+################################################
 -register 옵션
 required : string | { value : boolean, message : string }
+minLength : number | { value : number, message : string }
 ex) <input 
         {...register("test",{
             required : 'erroe message;,
+        })}
+    />
+    <input 
+        {...register("test",{
+            minLength:{
+                message : "5자이하입니다.",
+                value : 5,
+            }
         })}
     />
 참조
