@@ -4,14 +4,25 @@ interface FormType {
     username: string;
     email: string;
     password: string;
+    errors?: string;
 }
 
 export default function Forms() {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormType>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        watch,
+        setError,
+        setValue,
+        reset,
+        resetField,
+    } = useForm<FormType>({
         mode: "onChange",
     });
     const onSubmit = (data: FormType) => {
         console.log("Hi onSubmit");
+        setError("username", { message: "check" })
     };
     const onError = (err: FieldErrors) => {
         //console.log(err);
@@ -34,7 +45,7 @@ export default function Forms() {
                 {...register("email", {
                     required: "Email is required",
                     validate: {
-                        notGmail: (value) => !value.includes("@gmail.com") ? "" : "Gmail is not allowed",
+                        notGmail: (value) => !value.includes("@gmail.com") || "Gmail is not allowed",
                     }
                 })}
                 type="email"
@@ -50,6 +61,7 @@ export default function Forms() {
             />
             <br />
             <input type="submit" value="Create" />
+            {errors.errors?.message}
         </form>
     )
 }

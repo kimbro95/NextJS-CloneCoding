@@ -685,3 +685,29 @@ all
 blur 및 change 이벤트에서 유효성 검사가 트리거됩니다.
 참조
 https://react-hook-form.com/api/useform#props
+
+
+
+##################
+### 7.6 Extras ###
+##################
+-setError()
+이 함수를 사용하면 하나 이상의 오류를 수동으로 설정할 수 있다.
+ex) setError("username",{
+        type:"manual",
+        message" "Username Error",
+    })
+참조
+https://react-hook-form.com/api/useform/seterror
+
+-reset()
+전체 form state 또는 form state의 일부를 리셋한다.
+ form에서 submit후, 전체 input 초기화
+ 참조
+ https://react-hook-form.com/api/useform/reset
+
+ -resetField()
+ 개별 field state를 재설정한다.
+ form에서 submit후, 특정 input만 초기화
+ 참조
+ https://react-hook-form.com/api/useform/resetfield
