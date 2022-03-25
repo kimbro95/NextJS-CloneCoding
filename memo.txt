@@ -728,3 +728,20 @@ ex) import type { user } from './hello';
     import type { UseFormRegisterReturn } from "react-hook-form";
 참조
 https://www.typescriptlang.org/ko/docs/handbook/release-notes/typescript-3-8.html
+
+
+
+###########################
+### 8.1 Form Submission ###
+###########################
+-Uploading JSON data
+POST프로토콜로 JSON인코딩된 데이터를 보내기 위해 fetch()를 사용합니다.
+ex) await fetch(url, {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(data), // data can be `string` or {object}!
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    })
+참조
+https://developer.mozilla.org/ko/docs/Web/API/Fetch_API/Using_Fetch#uploading_json_data

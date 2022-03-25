@@ -11,6 +11,7 @@ interface EnterForm {
 
 export default function Enter() {
     const { register, handleSubmit, reset } = useForm<EnterForm>();
+    const [submitLoading, setSubmitLoading] = useState(false);
     const [method, setMethod] = useState<"email" | "phone">("email");
     const onEmailClick = () => {
         reset();
@@ -22,7 +23,16 @@ export default function Enter() {
     }
 
     const onVaild = (data: EnterForm) => {
-        console.log(data);
+        setSubmitLoading(true);
+        fetch(`/api/users/enter`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers:{
+                "Content-Type":"application/json",
+            }
+        }).then(() => {
+            setSubmitLoading(false);
+        });
     }
 
     return (
@@ -82,10 +92,10 @@ export default function Enter() {
                         ) : null
                     }
                     {
-                        method === "email" ? <Button text={"Get Login Link"}></Button> : null
+                        method === "email" ? <Button text={submitLoading ? "Loading..." : "Get Login Link"}></Button> : null
                     }
                     {
-                        method === "phone" ? <Button text={"Get one-time password"}></Button> : null
+                        method === "phone" ? <Button text={submitLoading ? "Loading..." :"Get one-time password"}></Button> : null
                     }
                 </form>
                 <div className="mt-6">
