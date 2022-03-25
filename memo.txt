@@ -711,3 +711,20 @@ https://react-hook-form.com/api/useform/seterror
  form에서 submit후, 특정 input만 초기화
  참조
  https://react-hook-form.com/api/useform/resetfield
+
+
+
+######################
+### 8.0 Enter Form ###
+######################
+-Type-Only Imports and Exports
+import type은 타입 표기와 선언에 사용될 선언만 import, export한다.
+런타임에서는 완전히 지워진다.
+마찬가지로 export type은 타입 문맥에 사용할 export만 제공 이 또한 TypeScript의 출력물에서 제거됩니다.
+Typescript 3.8에 추가된 것으로 정확하게 type만 import, export하도록 명시 할 수 있다.
+
+ex) import type { user } from './hello';
+    export type { user };
+    import type { UseFormRegisterReturn } from "react-hook-form";
+참조
+https://www.typescriptlang.org/ko/docs/handbook/release-notes/typescript-3-8.html
