@@ -13,7 +13,6 @@ interface EnterForm {
 export default function Enter() {
     const [enter, {loading, data, error}] = useMutation("/api/users/enter");
     const { register, handleSubmit, reset } = useForm<EnterForm>();
-    const [submitLoading, setSubmitLoading] = useState(false);
     const [method, setMethod] = useState<"email" | "phone">("email");
     const onEmailClick = () => {
         reset();
@@ -24,10 +23,11 @@ export default function Enter() {
         setMethod("phone");
     }
 
-    const onVaild = (data: EnterForm) => {
-        enter(data);
+    const onVaild = (valiForm: EnterForm) => {
+        if(loading) return;
+        enter(valiForm);
     }
-
+    console.log(loading, data, error);
     return (
         <div className="mt-16 px-4">
             <h3 className="text-3xl font-bold text-center">Enter to Carrot :)</h3>
@@ -85,10 +85,10 @@ export default function Enter() {
                         ) : null
                     }
                     {
-                        method === "email" ? <Button text={submitLoading ? "Loading..." : "Get Login Link"}></Button> : null
+                        method === "email" ? <Button text={loading ? "Loading..." : "Get Login Link"}></Button> : null
                     }
                     {
-                        method === "phone" ? <Button text={submitLoading ? "Loading..." :"Get one-time password"}></Button> : null
+                        method === "phone" ? <Button text={loading ? "Loading..." :"Get one-time password"}></Button> : null
                     }
                 </form>
                 <div className="mt-6">
