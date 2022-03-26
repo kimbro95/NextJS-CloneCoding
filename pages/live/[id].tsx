@@ -1,7 +1,7 @@
 import { NextPage } from "next";
-import Input from "../../components/input";
-import Layout from "../../components/layout";
-import Message from "../../components/message";
+import Input from "@components/input";
+import Layout from "@components/layout";
+import Message from "@components/message";
 
 const LiveDetail: NextPage = () => {
     return (
