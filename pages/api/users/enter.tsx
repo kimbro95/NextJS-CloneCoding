@@ -8,18 +8,24 @@ async function handler(
 ) {
     const { email, phone } = req.body;
     const enterType = phone ? { phone: +phone } : { email };
-    const user = await client.user.upsert({
-        where: {
-            ...enterType,
-        },
-        create: {
-            name: "user1",
-            ...enterType,
-        },
-        update: {
+    const payload = Math.floor(100000 + Math.random() * 900000) + "";
+    const token = await client.token.create({
+        data: {
+            payload,
+            user: {
+                connectOrCreate: {
+                    where: {
+                        ...enterType,
+                    },
+                    create: {
+                        name: "user1",
+                        ...enterType,
+                    },
+                },
+            },
         },
     });
-    console.log(user)
+    console.log(token);
     return res.status(200).end();
 }
 

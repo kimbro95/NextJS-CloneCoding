@@ -847,3 +847,47 @@ const user = await client.user.upsert({
 참조
 https://www.prisma.io/docs/concepts/components/prisma-client/crud#update-or-create-records
 https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#upsert
+
+
+
+#######################
+### 9.2 Token Logic ###
+#######################
+-connect
+connect 쿼리는 ID 또는 고유 식별자를 지정하여 레코드를 기존 relation 레코드에 연결한다. ( 레코드를 연결 )
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#connect
+
+-conncetOrCreate
+conncetOrCreate는 ID 또는 고유 식별자로 기존 관련 레코드에 레코드를 연결하거나 레코드가 존재하지 않는 경우 새 관련 레코드를 생성
+ex_1) 
+tag: {
+    conncetOrCreate:{
+        create:{
+            name: 'ABCD',
+        },
+        where: {
+            name: 'ABCD',
+        },
+    },
+},
+ex_2) 
+↓↓↓↓ 내 프로젝트에서 사용법 /api/users/enter
+const token = await client.token.create({
+    data: {
+        payload,
+        user: {
+            connectOrCreate: {
+                where: {
+                    ...enterType,
+                },
+                create: {
+                    name: "user1",
+                    ...enterType,
+                },
+            },
+        },
+    },
+});
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#connectorcreate
