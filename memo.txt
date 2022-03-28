@@ -806,3 +806,44 @@ https://www.typescriptlang.org/tsconfig#paths
 
 tsconfig 설정 옵션
 https://www.typescriptlang.org/tsconfig
+
+
+
+##########################
+### 9.1 Accounts Logic ###
+##########################
+-Update or Create Records ( upsert )
+upsert()는 기존 데이터를 업데이트하거나 새 데이터베이스 레코드를 생성한다.
+ex_1) 
+다음 쿼리는  upsert를 사용하여 특정 이메일 주소로 사용자 레코드를 업데이트 하거나, 
+존재하지 않을 경우 해당 사용자의 레코드를 생성한다.
+const upsertUser = await prisma.user.upsert({
+    where: {
+    email: 'hello@gmail.com',
+    },
+    update: {
+    name: 'pizza',
+    },
+    create: {
+    email: 'hello@gmail.com',
+    name: 'pizza',
+    },
+})
+
+ex_2)
+↓↓↓ ↓내 프로젝트에서 사용법 /api/users/enter
+const user = await client.user.upsert({
+    where : {
+        ...enterType,
+    },
+    create : {
+        name: "@@@",
+        ...enterType,
+    },
+    update : {
+
+    },
+})
+참조
+https://www.prisma.io/docs/concepts/components/prisma-client/crud#update-or-create-records
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#upsert

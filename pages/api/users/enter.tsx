@@ -6,7 +6,20 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse,
 ) {
-    console.log(req.body);
+    const { email, phone } = req.body;
+    const enterType = phone ? { phone: +phone } : { email };
+    const user = await client.user.upsert({
+        where: {
+            ...enterType,
+        },
+        create: {
+            name: "user1",
+            ...enterType,
+        },
+        update: {
+        },
+    });
+    console.log(user)
     return res.status(200).end();
 }
 
