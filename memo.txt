@@ -904,3 +904,34 @@ Twilio는 전화 걸기 및 받기, 문자 메시지 보내기 및 받기, 웹 �
 https://www.twilio.com/
 Twilo Document
 https://www.twilio.com/docs
+
+
+
+#######################
+### 9.4 Sending SMS ###
+#######################
+-twilio 설치
+npm i twilio
+Twilio의 메시징 채널을 사용하여 전송된 모든 메시징은 A2P( Application-to-Person ) 메시징으로 취급되며
+Twilio의 메시징 정책이 적용된다.
+몇 줄의 코드로 Node.js 어플리케이션에서 Twilio Programmable SMS로 문자 메시지를 보내고 받을 수 있다.
+ex) 
+import twilio from "twilio";
+const twilioClient = twilio(
+    process.env.TWILIO_SID, process.env.TWILIO_TOKEN
+);
+
+twilioClient.messages.create({
+    messagingServiceSid: process.env.TWILIO_MSID,
+    to: process.env.TWILIO_MY_PHONE!,
+    body: `Here is message content`,
+});
+
+.env 환경변수
+TWILIO_SID=
+TWILIO_TOKEN=
+TWILIO_MSID=
+TWILIO_MY_PHONE= ex) +821012345678  +국가번호가 있어야한다.
+
+참조
+https://www.twilio.com/docs/sms/quickstart/node
