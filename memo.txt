@@ -891,3 +891,16 @@ const token = await client.token.create({
 });
 참조
 https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#connectorcreate
+
+
+
+#######################
+### 9.3 Twilo Setup ###
+#######################
+-Twilio
+Twilio는 전화 걸기 및 받기, 문자 메시지 보내기 및 받기, 웹 서비스 API를 사용하여 기타 커뮤니케이션 기능 수행을 위한
+프로그래밍 가능한 커뮤니케이션 도구를 제공한다.
+참조
+https://www.twilio.com/
+Twilo Document
+https://www.twilio.com/docs
