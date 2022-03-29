@@ -935,3 +935,30 @@ TWILIO_MY_PHONE= ex) +821012345678  +국가번호가 있어야한다.
 
 참조
 https://www.twilio.com/docs/sms/quickstart/node
+
+
+
+#########################
+### 9.5 Sending Email ###
+#########################
+-SendGrid
+SendGrid는 거래 및 마케팅 이메일을 위한 고객 커뮤니케이션 플랫폼.
+https://sendgrid.com/solutions/email-api/
+
+SendGrid를 사용하여 메일 보내기
+1. 가입 및 인증 후 API키 생성 및 생성한 API키 환경변수에 저장
+2. npm install --save @sendgrid/mail
+3. 이메일 보내기 라이브러리 사용
+ex) import mail from "@sendgrid/mail";
+    
+    mail.setApiKey(process.env.SENDGRID_API_KEY!);
+    
+    const msg = await mail.send({
+        from: "from email address",
+        to: "to email address",
+        subject: "subject",
+        text: "text",
+        html: "<strong>sendgrid</strong>",
+    });
+참조
+https://app.sendgrid.com/guide/integrate/langs/nodejs
