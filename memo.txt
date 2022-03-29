@@ -962,3 +962,26 @@ ex) import mail from "@sendgrid/mail";
     });
 참조
 https://app.sendgrid.com/guide/integrate/langs/nodejs
+
+
+
+####################
+### 9.6 Token UI ###
+####################
+-BigInt ( JavaScript 타입 )
+BigInt는 Number 원시 값이 안정적으로 나타낼 수 있는 최대치인 2^53 -1 보다 큰 정수를 표현할 수 있는 내장 객체이다.
+참조
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+
+-onDelete: Cascade
+schema.prisma
+부모 레코드가 삭제되면 자식 레코드를 함께 삭제하도록하는 옵션이다.
+
+// option
+Casecade
+Restrict
+NoAction
+SetNull
+SetDefault
+참조
+https://www.prisma.io/docs/concepts/components/prisma-schema/relations/referential-actions
