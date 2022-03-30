@@ -55,7 +55,7 @@ export default function Enter() {
                             name="token"
                             label="Confirmation Token"
                             type="number"
-                            kind="phone"
+                            kind="text"
                             required
                         />
                         <Button text={tokenLoading ? "Loading..." : "Confirm Token"}></Button>
