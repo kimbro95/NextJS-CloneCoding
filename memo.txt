@@ -985,3 +985,56 @@ SetNull
 SetDefault
 참조
 https://www.prisma.io/docs/concepts/components/prisma-schema/relations/referential-actions
+
+
+
+###############################
+### 9.7 Serverless Sessions ###
+###############################
+-Iron Session
+데이터를 저장하기 위해 서명되고 암호화된 쿠키를 사용하는 Node.js stateless session 유틸리티
+Next.js Express, NestJs, Fastify 및 모든 Node.js HTTP 프레임워크와 함께 작동한다.
+설치
+npm insatll iron-session
+ex)
+import { withIronSessionApiRoute } from "iron-session/next";
+
+export default withIronSessionApiRoute(NextApiHandler)
+참조
+https://github.com/vvo/iron-session
+
+-req.session.save()
+세션 데이터를 암호화하고 쿠리를 설정한다.
+
+
+
+###########################
+### 9.8 Profile Handler ###
+###########################
+-TypeScript로 세션 데이터 Tying( req.session에 데이터 연결 )
+req.session은 자동으로 올바른 유형으로 채워지므로 .save() 및 .destroy()를 호출할 수 있다.
+그러나 더 나아가 세션 데이터도 입력할 수 있다.
+ex)
+declare module "iron-session"{
+    interface IronSessionData {
+        user?:{
+            id: nuber;,
+        };
+    }
+}
+참조
+https://github.com/vvo/iron-session#typing-session-data-with-typescript
+
+Module Augmentation
+위의 예시와 같이 모듈을 가져와서 module augmentation을 사용해서 컴파일러에게 알려줄 수 있다.
+JavaScript 모듈은 병합을 지원하지 않지만 기존 개체를 가져온 다음 업데이트하며 패치할 수 있다.
+
+ex)
+import { Observable } from "./observable";
+    declare module "./observable" {
+        interface Observable< T> {
+        map< U>(f: (x: T) => U): Observable< U>;
+    }
+}
+참조
+https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
