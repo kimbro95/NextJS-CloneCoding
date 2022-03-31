@@ -995,7 +995,7 @@ https://www.prisma.io/docs/concepts/components/prisma-schema/relations/referenti
 데이터를 저장하기 위해 서명되고 암호화된 쿠키를 사용하는 Node.js stateless session 유틸리티
 Next.js Express, NestJs, Fastify 및 모든 Node.js HTTP 프레임워크와 함께 작동한다.
 설치
-npm insatll iron-session
+npm install iron-session
 ex)
 import { withIronSessionApiRoute } from "iron-session/next";
 
@@ -1051,3 +1051,16 @@ Next.js 및 Serverless를 지원하도록 처음부터 설계되었다.
 참조
 https://next-auth.js.org/getting-started/example
 https://www.npmjs.com/package/next-auth
+
+
+
+#########################
+### 10.0 Introduction ###
+#########################
+-SWR
+데이터 fetching 위한 React Hooks
+SWR은 먼저 캐시(스태일)로 부터 데이터를 반환한 후, fetch 요청(재검증)을 하고, 최종적으로 최신화된 데이터를 가져오는 방식이다.
+SWR을 사용하면 컴포넌트는 지속적이며 자동으로 데이터 업데이트 스트림을 받게 됩니다.
+그리고 UI는 항상 빠르고 반응적이다.
+참조
+https://swr.vercel.app/ko
