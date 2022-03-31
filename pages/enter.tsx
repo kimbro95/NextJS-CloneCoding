@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { cls } from "@libs/client/utils";
 import useMutation from "@libs/client/useMutation";
 import Button from "@components/button";
 import Input from "@components/input";
+import { useRouter } from "next/router";
 
 interface EnterForm {
     email?: string;
@@ -18,11 +19,12 @@ interface MutationResult {
     ok: boolean;
 }
 export default function Enter() {
+    const router = useRouter();
+    const [method, setMethod] = useState<"email" | "phone">("email");
     const [enter, { loading, data, error }] = useMutation<MutationResult>("/api/users/enter");
     const [confirmToken, { loading: tokenLoading, data: tokenData }] = useMutation<MutationResult>("/api/users/confirm");
     const { register, handleSubmit, reset } = useForm<EnterForm>();
     const { register: tokenRegister, handleSubmit: tokenHandleSubmit } = useForm<TokenForm>();
-    const [method, setMethod] = useState<"email" | "phone">("email");
     const onEmailClick = () => {
         reset();
         setMethod("email");
@@ -41,7 +43,12 @@ export default function Enter() {
         if (tokenLoading) return;
         confirmToken(valiForm);
     }
-    console.log(loading, data, error);
+    useEffect(() => {
+        if (tokenData?.ok) {
+            router.push("/");
+        }
+    }, [tokenData, router]);
+
     return (
         <div className="mt-16 px-4">
             <h3 className="text-3xl font-bold text-center">Enter to Carrot :)</h3>
