@@ -1038,3 +1038,16 @@ import { Observable } from "./observable";
 }
 참조
 https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+
+
+
+#####################
+### 9.10 NextAuth ###
+#####################
+-NextAuth.js
+Next.js에서 Authentication구현을 도와주는 패키지이다.
+NextAuth.js는 Next.js 애플리케이션을 위한 완전한 오픈 소스 인증 솔루션이다.
+Next.js 및 Serverless를 지원하도록 처음부터 설계되었다.
+참조
+https://next-auth.js.org/getting-started/example
+https://www.npmjs.com/package/next-auth
