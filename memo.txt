@@ -1064,3 +1064,19 @@ SWR을 사용하면 컴포넌트는 지속적이며 자동으로 데이터 업�
 그리고 UI는 항상 빠르고 반응적이다.
 참조
 https://swr.vercel.app/ko
+
+
+
+#########################
+### 10.2 useUser Hook ###
+#########################
+-router.push()
+이전 페이지에 대한 히스토리를 남기고 싶다면 router.push()를 사용한다.
+
+-router.replace()
+이전 페이지에 대한 히스토리를 남기고 싶지 않다면 roter.replace()를 사용한다.
+
+ex) router.push(url, as, options)
+    router.replace(url, as, option)
+참조
+https://nextjs.org/docs/api-reference/next/router#routerpush
