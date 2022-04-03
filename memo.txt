@@ -1080,3 +1080,27 @@ ex) router.push(url, as, options)
     router.replace(url, as, option)
 참조
 https://nextjs.org/docs/api-reference/next/router#routerpush
+
+
+
+################
+### 10.3 SWR ###
+################
+-SWR
+SWR은 먼저 캐시로부터 데이터를 반환한 후, fetch요청(재검증)을 하고, 최종적으로 최신화된 데이터를 가져오는 방식이다.
+SWR을 사용하면 컴포넌트는 지속이며 자동으로 데이터 업데이트 스트림을 받게 된다.
+그리고 UI는 항상 빠르고 반응적
+
+설치
+npm i swr --legacy-peer-deps ( 뒤 명령어는 react18 정식 이전이기 때문에 )
+참조
+https://swr.vercel.app/ko/docs/getting-started
+
+-useSWR 사용하기
+1.JSON데이터를 사용하는 일반적인 RESTful API라면 먼저 네이티브 fetch의 단순 한 래퍼인 fetcher함수를 생성해야한다.
+ex) const fetcher = (...args) => fetch(...args).then((response) => response.json());
+
+2.그 다음 useSWR을 import하고 함수 컴포넌트 내에서 사용한다.
+ex) const { data, error } = useSWR("/api/users/me", fetcher);
+일반적으로 세가지 요청 상태가 가능하다.
+loading, ready, error, data 와 error값을 사용해 현재 요청의 상태를 알아내고, 해당하는 UI를 반환할 수 있다.
