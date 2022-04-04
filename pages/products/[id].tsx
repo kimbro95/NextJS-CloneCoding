@@ -1,8 +1,14 @@
 import { NextPage } from "next";
 import Button from "@components/button";
 import Layout from "@components/layout";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import Link from "next/link";
 
 const ItemDetail: NextPage = () => {
+    const router = useRouter();
+    const { data } = useSWR(router.query.id ? `/api/products/${router.query.id}` : null);
+    console.log(data);
     return (
         <Layout canGoBack>
             <div className="px-4 py-2">
@@ -11,22 +17,17 @@ const ItemDetail: NextPage = () => {
                     <div className="flex items-center border-b border-t cursor-pointer space-x-3 py-4">
                         <div className="h-12 w-12 rounded-full bg-slate-400" />
                         <div>
-                            <p className="text-md font-bold text-gray-800">Steve Jebs</p>
-                            <p className="text-xs font-medium text-gray-500">View profile &rarr;</p>
+                            <p className="text-md font-bold text-gray-800">{data?.product?.user?.name}</p>
+                            <Link href={`/users/profiles/${data?.product?.user?.name}`}>
+                                <a className="text-xs font-medium text-gray-500">View profile &rarr;</a>
+                            </Link>
                         </div>
                     </div>
                     <div className="mt-3 pb-4 border-b">
-                        <h1 className="text-3xl font-bold text-gray-800">Galaxy S50</h1>
-                        <span className="block text-2xl text-gray-800">$140</span>
+                        <h1 className="text-3xl font-bold text-gray-800">{data?.product?.name}</h1>
+                        <span className="block text-2xl text-gray-800">${data?.product?.price}</span>
                         <p className="text-base my-4 text-gray-700">
-                            My money&apos;s in that office, right? If she start giving me some
-                            bullshit about it ain&apos;t there, and we got to go someplace else
-                            and get it, I&apos;m gonna shoot you in the head then and there.
-                            Then I&apos;m gonna shoot that bitch in the kneecaps, find out where
-                            my goddamn money is. She gonna tell me too. Hey, look at me when
-                            I&apos;m talking to you, motherfucker. You listen: we go in there,
-                            and that ni**a Winston or anybody else is in there, you the first
-                            motherfucker to get shot. You understand?
+                            {data?.product?.description}
                         </p>
                         <div className="flex items-center justify-between space-x-3">
                             <Button large text="Talk to seller" />
