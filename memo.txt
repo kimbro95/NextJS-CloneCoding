@@ -1127,3 +1127,24 @@ https://swr.vercel.app/docs/global-configuration
 const { data, error, isValidating, mutate } = useSWR(key, fetcher, options)
 참조
 https://swr.vercel.app/docs/options
+
+
+
+##########################
+### 11.0 Product Model ###
+##########################
+- 기본 유형 매핑
+필드에 사용해야 하는 기본 데이터베이스 유형을 정의
+참조
+https://www.prisma.io/docs/concepts/components/prisma-schema/data-model#native-types-mapping
+
+MySQL 기본 데이터 베이스 유형
+ex) @db.Text, @db.MediumText, @db.LongText
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#mysql
+
+-Next.js로 PrismaClient를 인스턴스화하기 위한 모범 사례
+( ↓↓↓ 아래 경고를 해결하는 효과적인 방법 ↓↓↓ )
+❗ warn(prisma-client) There are already 10 instances of Prisma Client actively running.
+참조
+https://www.prisma.io/docs/support/help-articles/nextjs-prisma-client-dev-practices
