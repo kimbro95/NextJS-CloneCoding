@@ -7,7 +7,10 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ResponseType>,
 ) {
-    const { id } = req.query;
+    const {
+        query: { id },
+        session: { user },
+    } = req;
     const cleandId = +id.toString();
     const product = await client.product.findUnique({
         where: {
@@ -42,9 +45,31 @@ async function handler(
         },
         take: 4,
     });
+    const isLiked = Boolean(
+        await client.fav.findFirst({
+            where: {
+                productID: product?.id,
+                userId: user?.id,
+            },
+            select: {
+                id: true,
+            },
+        })
+    );
+    /*
+    count를 이용한 fav 조회
+    const isLikedCount = await client.fav.count({
+        where: {
+            productID: product?.id,
+            userId: user?.id,
+        },
+    });
+    isLiked: Boolean(isLikedCount);
+    */
     res.json({
         ok: true,
         product,
+        isLiked,
         relatedProducts,
     });
 }

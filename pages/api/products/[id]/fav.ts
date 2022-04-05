@@ -14,7 +14,7 @@ async function handler(
     const cleandId = +id.toString();
     const alreadyExists = await client.fav.findFirst({
         where: {
-            id: cleandId,
+            productID: cleandId,
             userId: user?.id,
         },
     });
