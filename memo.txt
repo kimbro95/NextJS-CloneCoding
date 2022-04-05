@@ -1148,3 +1148,69 @@ https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#mysql
 ❗ warn(prisma-client) There are already 10 instances of Prisma Client actively running.
 참조
 https://www.prisma.io/docs/support/help-articles/nextjs-prisma-client-dev-practices
+
+
+
+#############################
+### 11.5 Related Products ###
+#############################
+-OR
+하나 이상의 조건이 true를 반환해야한다.
+ex) title 필드에 Prisma 또는 DB가 포함된 Post 레코드 가져오기
+const result = await prisma.post.findMany({
+  where: {
+    OR: [
+      {
+        title: {
+          contains: 'Prisma',
+        },
+      },
+      {
+        title: {
+          contains: 'databases',
+        },
+      },
+    ],
+  },
+});
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#or
+
+-AND
+모든 조건이 true를 반환해야한다.
+ex)
+const result = await prisma.post.findMany({
+  where: {
+    AND: [
+      {
+        content: {
+          contains: 'Prisma',
+        },
+      },
+      {
+        published: {
+          equals: false,
+        },
+      },
+    ],
+  },
+});
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#and
+
+-ORDER BY 및 TAKE
+ex)
+await prisma.product.findMany({ 
+    where: { 
+        OR: orArray, 
+        AND: { 
+            NOT: { 
+                id: foundProduct?.id 
+            },
+        },
+    }, 
+    orderBy: { 
+        createdAt: "desc" 
+    }, 
+    take: 10 
+});
