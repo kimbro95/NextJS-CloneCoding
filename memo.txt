@@ -1214,3 +1214,28 @@ await prisma.product.findMany({
     }, 
     take: 10 
 });
+
+
+
+##############################
+### 11.6 Favorite Products ###
+##############################
+-Delete
+delete는 기존 DB 레코드를 삭제한다.( id 또는 유니크한 속성으로만 삭제 가능 )
+ex) const user = await client.user.delete({
+        where: {
+            id: 1,
+        },
+    });
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#delete
+
+-DeleteMany
+deleteMany는 트랜잭션에서 여러 레코드를 삭제한다.
+ex) const deleteUser = await client.user.deleteMany({
+        where: {
+            name: 'iPhone',
+        },
+    });
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#deletemany
