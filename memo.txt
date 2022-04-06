@@ -1239,3 +1239,28 @@ ex) const deleteUser = await client.user.deleteMany({
     });
 참조
 https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#deletemany
+
+
+
+############################
+### 11.8 Bound Mutations ###
+############################
+-Mutate
+mutate(data?, shouldRevalidate?)
+캐시 된 데이터를 뮤데이트하기 위한 함수
+
+ex) const { data, mutate } = useSWR<ItemDetailResponse>(router.query.id ? `/api/products/${router.query.id}` : null);
+    if (!data) return;
+    mutate({ ...data, isLiked: !data?.isLiked }, false);
+
+mutate(data, option)
+useSWR로 가져온 data를 뮤테이트, option은 true일 경우 다시 뮤테이트 false일 경우 x
+참조
+https://swr.vercel.app/ko/docs/mutation
+
+-Bound Mutate
+useSWR에 의해 반환된 SWR 객체는 SWR의 키로 미리 바인딩 된 mutate() 함수도 포함된다.
+기능적으로는 전역 mutate 함수와 동일하지만 key파라미터를 요구하지 않는다.
+ex) const { data, mutate } = useSWR('/api/user', fetcher)
+참조
+https://swr.vercel.app/docs/mutation#bound-mutate
