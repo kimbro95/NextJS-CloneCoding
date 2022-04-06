@@ -1264,3 +1264,28 @@ useSWR에 의해 반환된 SWR 객체는 SWR의 키로 미리 바인딩 된 muta
 ex) const { data, mutate } = useSWR('/api/user', fetcher)
 참조
 https://swr.vercel.app/docs/mutation#bound-mutate
+
+
+
+##############################
+### 11.9 Unbound Mutations ###
+##############################
+-Mutation
+useSWRConfig() hook으로부터 mutate 함수를 얻을 수 있으며, mutate(key)를 호출하여 동일한 키를 사용하는
+다른 SWR hook에게 revalidation 메시지를 전역으로 브로드캐스팅할 수 있다.
+mutate를 사용하면 로컬 데이터를 업데이트하는 동시에 유효성을 다시 검사하고 최종적으로 데이터를 바꿀 수 있다.
+
+ex) const { mutate } = useSWRConfig();
+
+↓↓↓ 이 키가 있는 모든 SWR에 revalidation하도록 지시 및 로컬 데이터가 올바른지 확인하기 위해 갱신( refetch )트리가
+mutate(key);
+mutate("/api/user");
+
+↓↓↓ 로컬 데이터를 즉시 업데이트하지만, revalitation은 비활성화
+mutate("/api/user", {...data, name: newName }, false );
+
+⭐ Bound Mutations = 현재 화면에서 캐시 된 데이터를 mutate 
+⭐ Unbound Mutations = mutate(key)를 통해 동일한 키를 사용하는 다른 페이지의 SWR hook을 mutate
+
+참조
+https://swr.vercel.app/docs/mutation
