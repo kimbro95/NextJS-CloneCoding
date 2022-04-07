@@ -45,21 +45,21 @@ async function handler(
             },
         },
     });
-    const isWondering = Boolean(
-        await client.wondering.findFirst({
-            where: {
-                postId: cleandId,
-                userId: user?.id,
-            },
-            select: {
-                id: true,
-            },
-        })
-    );
-
     if (!post) {
         res.status(404).json({ ok: false, error: "Not found post" });
     } else {
+        const isWondering = Boolean(
+            await client.wondering.findFirst({
+                where: {
+                    postId: cleandId,
+                    userId: user?.id,
+                },
+                select: {
+                    id: true,
+                },
+            })
+        );
+
         res.json({
             ok: true,
             post,

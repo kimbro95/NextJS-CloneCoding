@@ -8,6 +8,7 @@ import { Product, User } from "@prisma/client";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import useUser from "@libs/client/useUser";
+import { useEffect } from "react";
 
 interface ProductWithUser extends Product {
     user: User;
@@ -18,20 +19,31 @@ interface ItemDetailResponse {
     product: ProductWithUser;
     relatedProducts: Product[];
     isLiked: boolean;
+    error: string;
 }
 
 const ItemDetail: NextPage = () => {
     const { user, isLoading } = useUser();
     const router = useRouter();
     const { mutate } = useSWRConfig();
-    const { data, mutate: boundMutate } = useSWR<ItemDetailResponse>(router.query.id ? `/api/products/${router.query.id}` : null);
-    const [toggleFav] = useMutation(`/api/products/${router.query.id}/fav`);
+    const { data: productData, mutate: boundMutate } = useSWR<ItemDetailResponse>(router.query.id ? `/api/products/${router.query.id}` : null);
+    const [toggleFav, { data: favData, loading: favLoading }] = useMutation(`/api/products/${router.query.id}/fav`);
     const onFavClick = () => {
-        if (!data) return;
-        boundMutate((prev) => prev && { ...data, isLiked: !data?.isLiked }, false);
+        if (!productData) return;
+        boundMutate((prev) => prev && { ...productData, isLiked: !productData?.isLiked }, false);
         //mutate("/api/users/me", (prev: any) => ({ ok: false }), false);
-        toggleFav({});
+
+        if (!favLoading) toggleFav({});
     };
+
+    useEffect(() => {
+        if (productData && !productData.ok) {
+            router.push("/");
+        }
+        if (favData && !favData.ok) {
+            console.log(favData.error);
+        }
+    }, [productData, favData, router]);
     return (
         <Layout canGoBack>
             <div className="px-4 py-2">
@@ -40,17 +52,17 @@ const ItemDetail: NextPage = () => {
                     <div className="flex items-center border-b border-t cursor-pointer space-x-3 py-4">
                         <div className="h-12 w-12 rounded-full bg-slate-400" />
                         <div>
-                            <p className="text-md font-bold text-gray-800">{data?.product?.user?.name}</p>
-                            <Link href={`/users/profiles/${data?.product?.user?.name}`}>
+                            <p className="text-md font-bold text-gray-800">{productData?.product?.user?.name}</p>
+                            <Link href={`/users/profiles/${productData?.product?.user?.name}`}>
                                 <a className="text-xs font-medium text-gray-500">View profile &rarr;</a>
                             </Link>
                         </div>
                     </div>
                     <div className="mt-3 pb-4 border-b">
-                        <h1 className="text-3xl font-bold text-gray-800">{data?.product?.name}</h1>
-                        <span className="block text-2xl text-gray-800">${data?.product?.price}</span>
+                        <h1 className="text-3xl font-bold text-gray-800">{productData?.product?.name}</h1>
+                        <span className="block text-2xl text-gray-800">${productData?.product?.price}</span>
                         <p className="text-base my-4 text-gray-700">
-                            {data?.product?.description}
+                            {productData?.product?.description}
                         </p>
                         <div className="flex items-center justify-between space-x-3">
                             <Button large text="Talk to seller" />
@@ -58,10 +70,10 @@ const ItemDetail: NextPage = () => {
                                 onClick={onFavClick}
                                 className={cls(
                                     "flex items-center justify-center p-2  rounded-md focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-sky-500",
-                                    data?.isLiked ? "text-red-400 hover:bg-red-200 hover:text-red-600" : "text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                    productData?.isLiked ? "text-red-400 hover:bg-red-200 hover:text-red-600" : "text-gray-400 hover:bg-gray-100 hover:text-gray-600"
                                 )}
                             >
-                                {data?.isLiked ?
+                                {productData?.isLiked ?
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         className="h-6 w-6"
                                         viewBox="0 0 20 20"
@@ -96,7 +108,7 @@ const ItemDetail: NextPage = () => {
                 <div className="space-y-2">
                     <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
                     <div className="grid grid-cols-2 gap-3">
-                        {data?.relatedProducts?.map((product) => (
+                        {productData?.relatedProducts?.map((product) => (
                             <Link href={`/products/${product.id}`} key={product.id} passHref>
                                 <div key={product.id}>
                                     <div className="h-36 w-full mb-1 bg-slate-300" />

@@ -10,6 +10,7 @@ async function handler(
     const {
         query: { id },
         session: { user },
+        body: { answer },
     } = req;
     const cleandId = +id.toString();
     const post = await client.post.findUnique({
@@ -21,45 +22,27 @@ async function handler(
     if (!post) {
         res.status(404).json({ ok: false, error: "Not found post" });
     } else {
-        const alreadyExists = await client.wondering.findFirst({
-            where: {
-                userId: user?.id,
-                postId: cleandId,
+        const newAnswer = await client.answer.create({
+            data: {
+                answer,
+                user: {
+                    connect: {
+                        id: user?.id,
+                    },
+                },
+                post: {
+                    connect: {
+                        id: cleandId,
+                    },
+                },
             },
         });
-        if (alreadyExists) {
-            // delete wonder
-            await client.wondering.delete({
-                where: {
-                    id: alreadyExists.id,
-                },
-                select: {
-                    id: true,
-                }
-            });
-        } else {
-            // create wonder
-            await client.wondering.create({
-                data: {
-                    user: {
-                        connect: {
-                            id: user?.id,
-                        },
-                    },
-                    post: {
-                        connect: {
-                            id: cleandId,
-                        },
-                    },
-                },
-            });
-        }
 
         res.json({
             ok: true,
+            answer: newAnswer,
         });
     }
-
 }
 
 export default withApiSession(

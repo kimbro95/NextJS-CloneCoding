@@ -12,40 +12,50 @@ async function handler(
         session: { user },
     } = req;
     const cleandId = +id.toString();
-    const alreadyExists = await client.fav.findFirst({
+    const product = await client.product.findUnique({
         where: {
-            productID: cleandId,
-            userId: user?.id,
+            id: cleandId,
         },
     });
-    if (alreadyExists) {
-        // delete fav
-        await client.fav.delete({
+
+    if (!product) {
+        res.status(404).json({ ok: false, error: "Not found post" });
+    } else {
+        const alreadyExists = await client.fav.findFirst({
             where: {
-                id: alreadyExists.id
+                productID: cleandId,
+                userId: user?.id,
             },
         });
-    } else {
-        // create fav
-        await client.fav.create({
-            data: {
-                user: {
-                    connect: {
-                        id: user?.id,
+        if (alreadyExists) {
+            // delete fav
+            await client.fav.delete({
+                where: {
+                    id: alreadyExists.id
+                },
+            });
+        } else {
+            // create fav
+            await client.fav.create({
+                data: {
+                    user: {
+                        connect: {
+                            id: user?.id,
+                        },
+                    },
+                    product: {
+                        connect: {
+                            id: cleandId,
+                        },
                     },
                 },
-                product: {
-                    connect: {
-                        id: cleandId,
-                    },
-                },
-            },
+            });
+        }
+
+        res.json({
+            ok: true,
         });
     }
-
-    res.json({
-        ok: true,
-    });
 }
 
 export default withApiSession(
