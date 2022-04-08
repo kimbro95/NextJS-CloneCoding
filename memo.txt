@@ -1332,3 +1332,21 @@ error: Optional
 GeolocationPositionError 객체를 유일한 매개변수로 받은 콜백 함수
 참조
 https://developer.mozilla.org/ko/docs/Web/API/Geolocation/getCurrentPosition
+
+
+
+########################
+### 12.7 Geo Search  ###
+########################
+-gte or lte
+get: 크거나 같다.
+lte: 작거나 같다.
+ex) const getPost = await client.post.findMany({
+        where: {
+            likes: {
+                lte: 9,
+            },
+        },
+    });
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#lte
