@@ -36,6 +36,10 @@ async function handler(
                         },
                     },
                 },
+                orderBy: {
+                    createdAt: "asc",
+                },
+                take: 5,
             },
             _count: {
                 select: {

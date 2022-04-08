@@ -78,7 +78,8 @@ const CommunityDetail: NextPage = () => {
 
     useEffect(() => {
         if (answerData && answerData.ok) reset();
-    }, [answerData, reset]);
+        mutate();
+    }, [answerData, reset, mutate]);
     return (
         <Layout canGoBack>
             <div>
@@ -99,13 +100,13 @@ const CommunityDetail: NextPage = () => {
                         <span className="text-orange-500 font-medium">Q. </span>
                         {postData?.post?.question}
                     </div>
-                    <div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[2px]  w-full">
+                    <div className="flex px-4 space-x-4 mt-3 text-gray-700 py-2.5 border-t border-b-[2px]  w-full">
                         <button
                             onClick={onWonderClick}
-                            className={cls("flex space-x-2 items-center text-sm", postData?.isWondering ? "text-orange-500" : "")}
+                            className="flex space-x-1 items-center text-sm"
                         >
                             <svg
-                                className="w-4 h-4"
+                                className={cls("w-4 h-4", postData?.isWondering ? "text-orange-500" : "")}
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -120,7 +121,7 @@ const CommunityDetail: NextPage = () => {
                             </svg>
                             <span>궁금해요 {postData?.post?._count?.wondering}</span>
                         </button>
-                        <span className="flex space-x-2 items-center text-sm">
+                        <span className="flex space-x-1 items-center text-sm">
                             <svg
                                 className="w-4 h-4"
                                 fill="none"
