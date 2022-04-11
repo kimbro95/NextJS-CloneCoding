@@ -7,14 +7,22 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ResponseType>,
 ) {
-    const profile = await client.user.findUnique({
+    const {
+        session: { user },
+    } = req;
+
+    const favs = await client.fav.findMany({
         where: {
-            id: req.session.user?.id
+            userId: user?.id,
+        },
+        include: {
+            product: true,
         },
     });
+
     res.json({
         ok: true,
-        profile,
+        favs,
     });
 }
 
