@@ -1350,3 +1350,93 @@ ex) const getPost = await client.post.findMany({
     });
 참조
 https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#lte
+
+
+
+###################
+### 13.0 Models ###
+###################
+-@relation 인자
+name: 관계를 명확하게 하기 위해 관계의 이름을 정의한다.
+@relation(name: "writtenReviews", reference: [id]) 또는 @relation("writtenReviews")
+fields: 현재 모델의 필드 목록
+reference: 관계의 반대편에 있는 모델의 필드 목록
+
+ex) Review에서 User를 relation하는 경우에 2가지 일경우 name 값을 줘서 관계를 명확하게한다.
+model User {
+    id              Int         @id @default(autoincrement())
+    .
+    .
+    .
+    writtenReviews  Review[]    @relation(name: "writtenReviews")
+    receivedReviews Review[]    @relation(name: "receivedReviews")
+}
+
+model Review {
+  id           Int      @id @default(autoincrement())
+  review       String   @db.MediumText
+  createdBy    User     @relation(name: "writtenReviews", fields: [createdById], references: [id], onDelete: Cascade)
+  createdById  Int
+  createdFor   User     @relation(name: "receivedReviews", fields: [createdForId], references: [id], onDelete: Cascade)
+  createdForId Int
+}
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#relation
+
+-Disambiguating relations( 명확한 관계 )
+두 개의 동일한 모델 간에 두 개의 관계를 정의할 때 @relation속성에 name인수를 추가하여 모호성을 제거해야한다.
+참조
+https://www.prisma.io/docs/concepts/components/prisma-schema/relations#the-relation-attribute
+
+-enum
+enum은 MySQL, PostgreSQL에서 지원
+두 가지의 가능한 값으로 enum을 지정하고 기본값으로 설정한다.
+
+ex) 필드값이 동일한 모델을 enum 처리할 경우
+model Sale {
+    id        Int      @id @default(autoincrement())
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    Int
+    product   Product  @relation(fields: [productID], references: [id], onDelete: Cascade)
+    productID Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Purchase {
+    id        Int      @id @default(autoincrement())
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    Int
+    product   Product  @relation(fields: [productID], references: [id], onDelete: Cascade)
+    productID Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+                        ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓                         
+model User {
+    id              Int         @id @default(autoincrement())
+    .
+    .
+    .
+    records         Record[]
+}
+
+model Record {
+    id        Int      @id @default(autoincrement())
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    Int
+    product   Product  @relation(fields: [productID], references: [id], onDelete: Cascade)
+    productID Int
+    kind      Kind      ⭐⭐⭐
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum Kind {
+    Sale
+    Purchase
+}
+
+참조
+https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#enum
