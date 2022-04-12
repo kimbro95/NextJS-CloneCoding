@@ -4,9 +4,9 @@ import Item from "@components/item";
 import Layout from "@components/layout";
 import useUser from "@libs/client/useUser";
 import useSWR from "swr";
-import { Fav, Product } from "@prisma/client";
+import { Product } from "@prisma/client";
 
-interface ProductWitCount extends Product {
+export interface ProductWitCount extends Product {
   _count: {
     favs: number;
   };
