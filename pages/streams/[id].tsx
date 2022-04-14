@@ -7,10 +7,25 @@ import useSWR from "swr";
 import { Stream } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
+import useUser from "@libs/client/useUser";
+import { useEffect } from "react";
+
+interface StreamMessage{
+    message: string;
+    id: number;
+    user: {
+        avatar?: string;
+        id: number;
+    }
+}
+
+interface StreamWithMessages extends Stream{
+    messages: StreamMessage[]
+}
 
 interface StreamResponse {
     ok: boolean;
-    stream: Stream;
+    stream: StreamWithMessages;
 }
 
 interface MesaageForm {
@@ -18,16 +33,21 @@ interface MesaageForm {
 }
 
 const LiveDetail: NextPage = () => {
+    const { user } = useUser();
     const router = useRouter();
     const { register, handleSubmit, reset } = useForm<MesaageForm>();
-    const { data } = useSWR<StreamResponse>(router.query.id ? `/api/streams/${router.query.id}` : null);
+    const { data, mutate } = useSWR<StreamResponse>(router.query.id ? `/api/streams/${router.query.id}` : null);
     const [ sendMessage, { loading, data: sendMessageData }] = useMutation(`/api/streams/${router.query.id}/messages`);
     const onValid = (form : MesaageForm) => {
         if (loading) return;
         reset();
         sendMessage(form);
     }
-
+    useEffect(() => {
+        if(sendMessageData && sendMessageData.ok){
+            mutate();
+        }
+    }, [sendMessageData, mutate])
     return (
         <Layout canGoBack title="Live">
             <div className="px-4 py-2 space-y-2 ">
@@ -43,18 +63,13 @@ const LiveDetail: NextPage = () => {
                 <div>
                     <h2 className="text-xl font-semibold text-gray-900">Live Chat</h2>
                     <div className="py-10 pb-16 h-[55vh] px-1 space-y-4 overflow-y-scroll">
-                        <Message message="Hello World !!!" />
-                        <Message message="This is Carrot Market" />
-                        <Message message="WoW" reversed />
-                        <Message message="LOL!!!" />
-                        <Message message="Hello World !!!" />
-                        <Message message="This is Carrot Market" />
-                        <Message message="WoW" reversed />
-                        <Message message="LOL!!!" />
-                        <Message message="Hello World !!!" />
-                        <Message message="This is Carrot Market" />
-                        <Message message="WoW" reversed />
-                        <Message message="LOL!!!" />
+                    {data?.stream.messages.map((message)=> (
+                        <Message 
+                            key={message.id} 
+                            message={message.message}
+                            reversed={message.user.id === user?.id}
+                        />
+                    ))}
                     </div>
                 </div>
                 <form onSubmit={handleSubmit(onValid)} className="fixed px-2 py-2 bg-white bottom-0 inset-x-0">
