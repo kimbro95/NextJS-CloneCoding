@@ -3,7 +3,7 @@ import type { UseFormRegisterReturn } from "react-hook-form";
 interface InputProps {
     label?: string;
     name?: string;
-    kind: "text" | "phone" | "price" | "chat";
+    kind: "text" | "phone" | "price";
     type: string;
     register: UseFormRegisterReturn;
     required: boolean;
@@ -85,27 +85,6 @@ export default function Input({
                             "
                         />
                     </div>
-                ) : null
-            }
-            {
-                kind === "chat" ? (
-                    <form className="fixed px-2 py-2 bg-white bottom-0 inset-x-0">
-                        <div className="flex items-center relative">
-                            <input
-                                type="text"
-                                className="shadow-sm rounded-full w-full border-gray-300 pr-12
-                    focus:ring-orange-500 focus:outline-none focus:border-orange-500"
-                            />
-                            <div className="absolute inset-y-0 flex py-1.5 pr-1.5 right-0">
-                                <button
-                                    className="flex items-center bg-orange-500 rounded-full px-3 text-white font-bold
-                        focus:ring-2 focus:ring-offset-2 focus:ring-orange-500
-                        hover:bg-orange-600 cursor-pointer"
-                                >&rarr;
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 ) : null
             }
         </div>
