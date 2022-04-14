@@ -2,25 +2,28 @@ import { NextPage } from "next";
 import Input from "@components/input";
 import Layout from "@components/layout";
 import Message from "@components/message";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import { Stream } from "@prisma/client";
+
+interface StreamResponse {
+    ok: boolean;
+    stream: Stream;
+}
 
 const LiveDetail: NextPage = () => {
+    const router = useRouter();
+    const { data } = useSWR<StreamResponse>(router.query.id ? `/api/streams/${router.query.id}` : null);
     return (
         <Layout canGoBack title="Live">
             <div className="px-4 py-2 space-y-2 ">
                 <div className="w-full bg-slate-400 rounded-md shadow-md aspect-video" />
                 <h3 className="mt-2 font-bold text-gray-700 text-3xl">Live Streams...</h3>
                 <div className="mt-5">
-                    <h1 className="text-xl font-bold text-gray-700">Galaxy S50</h1>
-                    <span className="text-2xl block text-gray-700">$140</span>
+                    <h1 className="text-xl font-bold text-gray-700">{data?.stream?.name}</h1>
+                    <span className="text-2xl block text-gray-700">${data?.stream?.price}</span>
                     <p className=" my-2 text-gray-700">
-                        My money&apos;s in that office, right? If she start giving me some
-                        bullshit about it ain&apos;t there, and we got to go someplace else
-                        and get it, I&apos;m gonna shoot you in the head then and there. Then
-                        I&apos;m gonna shoot that bitch in the kneecaps, find out where my
-                        goddamn money is. She gonna tell me too. Hey, look at me when I&apos;m
-                        talking to you, motherfucker. You listen: we go in there, and that
-                        ni**a Winston or anybody else is in there, you the first motherfucker
-                        to get shot. You understand?
+                        {data?.stream?.description}
                     </p>
                 </div>
                 <div>

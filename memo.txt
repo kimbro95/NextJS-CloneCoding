@@ -1471,3 +1471,21 @@ model Review {
     id           Int      @id @default(autoincrement())
     score        Int?     ⭐
 }
+
+
+
+########################
+### 14.1 Detail Page ###
+########################
+-valueAsNumber: boolean
+React-hook-form에서 입력한 input을 숫자로 반환한다.
+문제가 발생하면 NaN으로 반환
+valueAs 프로세스는 유효성 검사 후 발생한다.
+ex) register({valueAsNumber : true})
+
+-valueAsDate: boolean
+입력한 input을 날짜로 반환한다.
+문제가 발생하면 null이 반환
+ex) register({valueAsDate : true})
+참조
+https://react-hook-form.com/kr/api/
