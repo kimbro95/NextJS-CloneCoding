@@ -1507,3 +1507,23 @@ https://swr.vercel.app/ko/docs/options
 
 Revalidate on Interval
 https://swr.vercel.app/docs/revalidation#revalidate-on-interval
+
+
+
+####################
+### 14.5 Seeding ###
+####################
+-Seeding ur DB
+시딩을 사용하면 DB에 동일한 데이터를 일관되게 다시 생성할 수 있으며 다음을 수행할 수 있다.
+1. 어플리케이션을 시작하는데 필요한 데이터(ex: 기본 언어or기본 통화)로 DB를 채운다.
+2. 개발 환경에서 어플리케이션을 검증하고 사용하기 위한 기본 데이터 제공.
+
+npm i ts-node
+DB에 시드하려면 db seed CLI명령을 실행.
+npx prisma db seed
+ex) package.json
+    "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+}
+참조
+https://www.prisma.io/docs/guides/database/seed-database
