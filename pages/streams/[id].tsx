@@ -10,7 +10,7 @@ import useMutation from "@libs/client/useMutation";
 import useUser from "@libs/client/useUser";
 import { useEffect } from "react";
 
-interface StreamMessage{
+interface StreamMessage {
     message: string;
     id: number;
     user: {
@@ -19,7 +19,7 @@ interface StreamMessage{
     }
 }
 
-interface StreamWithMessages extends Stream{
+interface StreamWithMessages extends Stream {
     messages: StreamMessage[]
 }
 
@@ -36,18 +36,36 @@ const LiveDetail: NextPage = () => {
     const { user } = useUser();
     const router = useRouter();
     const { register, handleSubmit, reset } = useForm<MesaageForm>();
-    const { data, mutate } = useSWR<StreamResponse>(router.query.id ? `/api/streams/${router.query.id}` : null);
-    const [ sendMessage, { loading, data: sendMessageData }] = useMutation(`/api/streams/${router.query.id}/messages`);
-    const onValid = (form : MesaageForm) => {
+    const { data, mutate } = useSWR<StreamResponse>(
+        router.query.id ? `/api/streams/${router.query.id}` : null, {
+        refreshInterval: 1000,
+    }
+    );
+    const [sendMessage, { loading, data: sendMessageData }] = useMutation(`/api/streams/${router.query.id}/messages`);
+    const onValid = (form: MesaageForm) => {
         if (loading) return;
         reset();
-        sendMessage(form);
+        mutate((prev) =>
+            prev &&
+            ({
+                ...prev,
+                stream: {
+                    ...prev.stream,
+                    messages: [
+                        ...prev.stream.messages,
+                        {
+                            id: Date.now(),
+                            message: form.message,
+                            user: {
+                                ...user,
+                            },
+                        },
+                    ],
+                },
+            } as any)
+            , false);
+        //sendMessage(form);
     }
-    useEffect(() => {
-        if(sendMessageData && sendMessageData.ok){
-            mutate();
-        }
-    }, [sendMessageData, mutate])
     return (
         <Layout canGoBack title="Live">
             <div className="px-4 py-2 space-y-2 ">
@@ -63,20 +81,20 @@ const LiveDetail: NextPage = () => {
                 <div>
                     <h2 className="text-xl font-semibold text-gray-900">Live Chat</h2>
                     <div className="py-10 pb-16 h-[55vh] px-1 space-y-4 overflow-y-scroll">
-                    {data?.stream.messages.map((message)=> (
-                        <Message 
-                            key={message.id} 
-                            message={message.message}
-                            reversed={message.user.id === user?.id}
-                        />
-                    ))}
+                        {data?.stream.messages.map((message) => (
+                            <Message
+                                key={message.id}
+                                message={message.message}
+                                reversed={message.user.id === user?.id}
+                            />
+                        ))}
                     </div>
                 </div>
                 <form onSubmit={handleSubmit(onValid)} className="fixed px-2 py-2 bg-white bottom-0 inset-x-0">
                     <div className="flex items-center relative">
                         <input
                             type="text"
-                            {...register("message", {required: true})}
+                            {...register("message", { required: true })}
                             className="shadow-sm rounded-full w-full border-gray-300 pr-12
                             focus:ring-orange-500 focus:outline-none focus:border-orange-500"
                         />

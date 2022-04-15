@@ -1489,3 +1489,21 @@ ex) register({valueAsNumber : true})
 ex) register({valueAsDate : true})
 참조
 https://react-hook-form.com/kr/api/
+
+
+
+##################################
+### 14.4 Mutations and Refresh ###
+##################################
+-useSWR() 옵션
+refreshInterval
+기본값: refreshInterval = 0
+숫자를 설정하면 밀리초 간격으로 poling 한다.
+함수로 설정하면 함수는 최신 데이터를 받고, 밀리초 단위로 리턴한다.
+ex) useSWR(`/api/example`, fetcher, { refreshInterval: 1000 })
+참조
+https://swr.vercel.app/docs/options#options
+https://swr.vercel.app/ko/docs/options
+
+Revalidate on Interval
+https://swr.vercel.app/docs/revalidation#revalidate-on-interval

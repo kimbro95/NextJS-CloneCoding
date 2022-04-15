@@ -43,7 +43,6 @@ const EditProfile: NextPage = () => {
         }
     }, [data, setError]);
 
-    console.log(data?.error)
     return (
         <Layout canGoBack title="Edit Profile">
             <form onSubmit={handleSubmit(onValid)} className="px-4 py-3 space-y-2">
