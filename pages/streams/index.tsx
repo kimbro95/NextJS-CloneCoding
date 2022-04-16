@@ -3,19 +3,35 @@ import Link from "next/link";
 import FloatingButton from "@components/floating-button";
 import Layout from "@components/layout";
 import { Stream } from "@prisma/client";
-import useSWR from "swr";
+import useSWRInfinite  from "swr/infinite";
+import { useEffect } from "react";
+import { useInfiniteScroll } from "@libs/client/useInfiniteScroll";
 
 interface StreamsResponse {
     ok: boolean;
     streams: Stream[];
+    pages: number;
 }
 
+const getKey = (pageIndex: number, previousPageData: StreamsResponse) => {
+    if (pageIndex === 0) return `/api/streams?page=1`;
+    if (pageIndex + 1 > previousPageData.pages) return null;
+    return `/api/streams?page=${pageIndex + 1}`;
+};
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
 const Streams: NextPage = () => {
-    const { data } = useSWR<StreamsResponse>(`/api/streams`);
+    const { data, setSize } = useSWRInfinite <StreamsResponse>(getKey, fetcher);
+    const streams = data ? data.map((item) => item.streams).flat() : [];
+    const page = useInfiniteScroll();
+    useEffect(() => {
+        setSize(page);
+    }, [setSize, page]);
     return (
         <Layout title='Live' hasTabBar>
             <div className="space-y-4 divide-y-2">
-                {data?.streams.map((stream) => (
+                {streams.map((stream) => (
                     <Link key={stream.id} href={`/streams/${stream.id}`}>
                         <a className="pt-2 px-4 block">
                             <div className="w-full bg-slate-400 rounded-md shadow-md aspect-video" />
@@ -23,7 +39,7 @@ const Streams: NextPage = () => {
                         </a>
                     </Link>
                 ))}
-                <FloatingButton href="/live/create">
+                <FloatingButton href="/streams/create">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
