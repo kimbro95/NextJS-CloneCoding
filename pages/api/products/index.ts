@@ -7,7 +7,11 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ResponseType>,
 ) {
+    const {
+        query: { page },
+    } = req;
     if (req.method === "GET") {
+        const productCount = await client.product.count();
         const products = await client.product.findMany({
             include: {
                 _count: {
@@ -16,10 +20,16 @@ async function handler(
                     },
                 },
             },
+            orderBy: {
+                createdAt: "desc",
+            },
+            take: 10,
+            skip: (+page - 1) * 10,
         });
         res.json({
             ok: true,
             products,
+            pages: Math.ceil(productCount / 10),
         });
     }
     if (req.method === "POST") {

@@ -3,7 +3,7 @@ import Link from "next/link";
 import FloatingButton from "@components/floating-button";
 import Layout from "@components/layout";
 import { Stream } from "@prisma/client";
-import useSWRInfinite  from "swr/infinite";
+import useSWRInfinite from "swr/infinite";
 import { useEffect } from "react";
 import { useInfiniteScroll } from "@libs/client/useInfiniteScroll";
 
@@ -22,7 +22,7 @@ const getKey = (pageIndex: number, previousPageData: StreamsResponse) => {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Streams: NextPage = () => {
-    const { data, setSize } = useSWRInfinite <StreamsResponse>(getKey, fetcher);
+    const { data, setSize } = useSWRInfinite<StreamsResponse>(getKey, fetcher);
     const streams = data ? data.map((item) => item.streams).flat() : [];
     const page = useInfiniteScroll();
     useEffect(() => {
