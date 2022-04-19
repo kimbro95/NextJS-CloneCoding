@@ -1549,3 +1549,21 @@ Cloudflare Images는 이미지 인프라를 구축하고 유지하는 효율적�
 전세계 Cloudflare 데이터 센터에서 이미지를 전달한다.
 참조
 https://www.cloudflare.com/ko-kr/products/cloudflare-images/
+
+
+
+##########################
+### 15.1 Image Preview ###
+##########################
+-URL.createObjectURL()
+URL.createObjectURL(object) 메소드는 주어직 객체를 가리키는 URL을 DOMString으로 반환한다.
+같은 객체를 사용하더라도, createObjectURL()을 매번 호출할 때마다 새로운 객체 URL을 생성한다.
+각각의 URL을 더는 쓰지 않을 땐 URL.revokeObjectURL()을 사용해 하나씩 해제해줘야한다.
+ex) const url = URL.createObjectURL(object)
+object
+객체 URL을 생성할 File, Blob, MediaSource 객체
+리턴값
+지정한 object의 참조 URL을 담은 DOMString
+
+참조
+https://developer.mozilla.org/ko/docs/Web/API/URL/createObjectURL
