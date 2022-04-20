@@ -24,12 +24,30 @@ const EditProfile: NextPage = () => {
     const { user } = useUser();
     const { register, setValue, handleSubmit, setError, formState: { errors }, watch } = useForm<EditProfileForm>();
     const [editProfile, { data, loading }] = useMutation<EditProfileResponse>(`/api/users/me`);
-    const onValid = ({ email, phone, name, avatar }: EditProfileForm) => {
+    const onValid = async ({ email, phone, name, avatar }: EditProfileForm) => {
         if (loading) return
         if (email === '' && phone === '' && name === '') {
             return setError("formErrors", { message: "Email or Phone number are required." });
         }
-        editProfile({ email, phone, name });
+        if (avatar && avatar.length > 0) {
+            // ask for Cloudflare URL
+            const cloudflareRequest = await (await fetch(`/api/files`)).json();
+            console.log(cloudflareRequest);
+            return;
+            // Upload file to Cloudflare URL
+            editProfile({
+                email,
+                phone,
+                name,
+                //avatarUrl: 
+            });
+        } else {
+            editProfile({
+                email,
+                phone,
+                name
+            });
+        }
     };
 
     useEffect(() => {

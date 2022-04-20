@@ -1609,3 +1609,18 @@ https://developers.cloudflare.com/images/cloudflare-images/upload-images/direct-
 .env
 CLOUDFLARE_API_TOKEN=
 CLOUDFLARE_ACCOUNT_ID=
+
+
+
+##############################
+### 15.4 Direct Upload URL ###
+##############################
+-Direct Upload Endpont
+fetch url : `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/images/v1/direct_upload`
+
+Header
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`,
+    },
