@@ -1599,3 +1599,13 @@ curl --request POST \
 
 참조
 https://developers.cloudflare.com/images/cloudflare-images/upload-images/direct-creator-upload/
+
+
+
+#############################
+### 15.3 Cloudflare Setup ###
+#############################
+-Cloudflare Setup
+.env
+CLOUDFLARE_API_TOKEN=
+CLOUDFLARE_ACCOUNT_ID=
