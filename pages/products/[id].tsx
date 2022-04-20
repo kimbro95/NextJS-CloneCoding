@@ -48,9 +48,23 @@ const ItemDetail: NextPage = () => {
         <Layout canGoBack>
             <div className="px-4 py-2">
                 <div className="mb-2">
-                    <div className="h-96 bg-slate-500" />
+                    {productData?.product.image ?
+                        <img
+                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product.image}/public`}
+                            className="h-96 bg-slate-500 aspect-video"
+                        />
+                        :
+                        <div className="h-96 bg-slate-500" />
+                    }
                     <div className="flex items-center border-b border-t cursor-pointer space-x-3 py-4">
-                        <div className="h-12 w-12 rounded-full bg-slate-400" />
+                        {productData?.product.user.avatar ?
+                            <img
+                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product.user.avatar}/avatar`}
+                                className="h-12 w-12 rounded-full bg-slate-400"
+                            />
+                            :
+                            <div className="h-12 w-12 rounded-full bg-slate-400" />
+                        }
                         <div>
                             <p className="text-md font-bold text-gray-800">{productData?.product?.user?.name}</p>
                             <Link href={`/users/profiles/${productData?.product?.user?.name}`}>
@@ -110,8 +124,16 @@ const ItemDetail: NextPage = () => {
                     <div className="grid grid-cols-2 gap-3">
                         {productData?.relatedProducts?.map((product) => (
                             <Link href={`/products/${product.id}`} key={product.id} passHref>
-                                <div key={product.id}>
-                                    <div className="h-36 w-full mb-1 bg-slate-300" />
+                                <div key={product.id} className="cursor-pointer">
+                                    {product.image.length > 0
+                                        ?
+                                        <img
+                                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${product.image}/public`}
+                                            className="h-36 w-full mb-1 bg-slate-300"
+                                        />
+                                        :
+                                        <div className="h-36 w-full mb-1 bg-slate-300" />
+                                    }
                                     <h3 className="text-gray-700 -mb-1">{product.name}</h3>
                                     <span className="text-sm font-bold text-gray-900">${product.price}</span>
                                 </div>

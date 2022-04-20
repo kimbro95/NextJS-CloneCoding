@@ -6,6 +6,7 @@ interface ItemProps {
     price: number;
     comments: number;
     hearts: number;
+    productImage: String;
 }
 
 export default function Item({
@@ -13,13 +14,21 @@ export default function Item({
     id,
     price,
     comments,
-    hearts
+    hearts,
+    productImage,
 }: ItemProps) {
     return (
         <Link href={`/products/${id}`}>
             <a className="flex justify-between cursor-pointer space-x-3 py-2 px-4">
                 <div className="flex space-x-4">
-                    <div className="w-20 h-20 bg-slate-500 rounded-md" />
+                    {productImage.length > 0 ?
+                        <img
+                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productImage}/public`}
+                            className="w-20 h-20 bg-slate-500 rounded-md"
+                        />
+                        :
+                        <div className="w-20 h-20 bg-slate-500 rounded-md" />
+                    }
                     <div className="flex flex-col pt-2">
                         <h3 className="text-md font-semibold text-gray-900">{title}</h3>
                         <span className="text-sm font-semibold text-gray-900 mt-1">${price}</span>
