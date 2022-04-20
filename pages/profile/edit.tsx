@@ -31,20 +31,21 @@ const EditProfile: NextPage = () => {
         }
         if (avatar && avatar.length > 0 && user) {
             // ask for Cloudflare URL
-            const { id, uploadURL } = await (await fetch(`/api/files`)).json();
+            const { uploadURL } = await (await fetch(`/api/files`)).json();
+
             // Upload file to Cloudflare URL
             const form = new FormData();
             form.append("file", avatar[0], user?.id + "");
-            await fetch(uploadURL, {
+            const { result: { id } } = await (await fetch(uploadURL, {
                 method: "POST",
                 body: form,
-            });
-            return;
+            })).json();
+
             editProfile({
                 email,
                 phone,
                 name,
-                //avatarUrl: 
+                avatarId: id
             });
         } else {
             editProfile({
@@ -59,6 +60,7 @@ const EditProfile: NextPage = () => {
         if (user?.name) setValue("name", user.name);
         if (user?.email) setValue("email", user.email);
         if (user?.phone) setValue("phone", user.phone);
+        if (user?.avatar) setAvatarPreview(`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${user.avatar}/public`);
     }, [user, setValue]);
 
     useEffect(() => {

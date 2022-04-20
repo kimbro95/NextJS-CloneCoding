@@ -23,8 +23,14 @@ const Profile: NextPage = () => {
         <Layout title='My Page' hasTabBar>
             <div className="py-4 px-4">
                 <div className="flex items-center space-x-3">
-                    <div className="w-16 h-16 bg-slate-500 rounded-full" />
-                    <div className="flex flex-col">
+                    {user?.avatar ?
+                        <img
+                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${user.avatar}/public`}
+                            className="w-16 h-16 bg-slate-500 rounded-full"
+                        />
+                        :
+                        <div className="w-16 h-16 bg-slate-500 rounded-full" />
+                    }<div className="flex flex-col">
                         <span className="font-bold text-gray-900">{user?.name}</span>
                         <Link href={`/profile/edit`}>
                             <a className="text-sm text-gray-700">Edit profile &rarr;</a>
@@ -99,7 +105,15 @@ const Profile: NextPage = () => {
                 {data?.reviews.map((review) => (
                     <div key={review.id} className="mt-6">
                         <div className="flex items-center space-x-4">
-                            <div className="h-12 w-12 rounded-full bg-slate-500" />
+                            {review?.createdBy.avatar
+                                ?
+                                <img
+                                    src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${review?.createdBy.avatar}/public`}
+                                    className="w-12 h-12 bg-slate-500 rounded-full"
+                                />
+                                :
+                                <div className="w-12 h-12 bg-slate-500 rounded-full" />
+                            }
                             <div>
                                 <h4 className="text-sm font-bold text-gray-700">{review.createdBy.name}</h4>
                                 <div className="flex items-center">
