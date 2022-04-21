@@ -1653,3 +1653,25 @@ https://developer.mozilla.org/ko/docs/Web/API/FormData
 Next.js 이미지 컴포넌트인 next/image는 모던 웹용으로 발전된 HTML img 태그의 확장이다.
 참조
 https://nextjs.org/docs/basic-features/image-optimization
+
+
+
+#########################
+### 16.1 Local Images ###
+#########################
+-Local Images ( next/image component )
+로컬 이미지를 사용하려면 .jpg .png 또는 .webp 파일을 가져온다.
+동적 await import() 또는 require()는 지원되지 않는다.
+import는 빌드시 분석할 수 있도록 static 이어야 한다.
+Next.js는 가져온 파일을 기반으로 이미지의 너비와 높이를 자동을 결정
+
+<Image
+    src={picture}
+    alt"this is picture"
+    width={500}             자동으로 제공
+    height={500}            자동으로 제공
+    blurDataURL="data:..."  자동으로 제공
+    placeholder="blur"      로딩 중 blur-up(선택)
+/>
+참조
+https://nextjs.org/docs/basic-features/image-optimization#local-images
