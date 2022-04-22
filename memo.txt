@@ -1675,3 +1675,28 @@ Next.js는 가져온 파일을 기반으로 이미지의 너비와 높이를 자
 />
 참조
 https://nextjs.org/docs/basic-features/image-optimization#local-images
+
+
+
+##########################
+### 16.2 Remote Images ###
+##########################
+-Remote Images
+원격 이미지를 사용하려면 src속성이 URL 문자열이어야 하며 relative 또는 absolute일 수 있습니다.
+Next.js는 빌드 프로세스 동안 원격 파일에 액세스할 수 없으므로 width, height 및 선택적 blurDataURL props을 수동으로 설정해야한다.
+참조
+https://nextjs.org/docs/basic-features/image-optimization#remote-images
+
+-Domains ( next.config.js 설정 )
+Next.js 이미지 최적화 API를 사용하면서 원격 이미지에 접근하고 싶을 경우 loader를 기본 설정으로 두고
+src에 대한 절대 URL을 입력한다.
+악의적인 사용자로부터 애플리케이션을 보호하려면 이러한 방식으로 접근하려는 원격 도메인 목록을
+아래와 같이 next.config.js 파일에 정의해야한다.
+ex) next.config.js
+module.exports = {
+    images: {
+        domains: ['imagedelivery.net','example.com', 'example2.com'],
+    },
+}
+참조
+https://nextjs.org/docs/basic-features/image-optimization#domains

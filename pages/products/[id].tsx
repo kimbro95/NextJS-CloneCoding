@@ -9,6 +9,7 @@ import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import useUser from "@libs/client/useUser";
 import { useEffect } from "react";
+import Image from "next/image";
 
 interface ProductWithUser extends Product {
     user: User;
@@ -50,7 +51,7 @@ const ItemDetail: NextPage = () => {
                 <div className="mb-2">
                     {productData?.product.image ?
                         <img
-                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product.image}/public`}
+                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product?.image}/public`}
                             className="h-96 bg-slate-500 aspect-video"
                         />
                         :
@@ -58,8 +59,10 @@ const ItemDetail: NextPage = () => {
                     }
                     <div className="flex items-center border-b border-t cursor-pointer space-x-3 py-4">
                         {productData?.product.user.avatar ?
-                            <img
-                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product.user.avatar}/avatar`}
+                            <Image
+                                height={48}
+                                width={48}
+                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product?.user?.avatar}/avatar`}
                                 className="h-12 w-12 rounded-full bg-slate-400"
                             />
                             :
