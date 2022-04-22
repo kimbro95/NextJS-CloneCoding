@@ -49,26 +49,30 @@ const ItemDetail: NextPage = () => {
         <Layout canGoBack>
             <div className="px-4 py-2">
                 <div className="mb-2">
-                    <div className="relative pb-80">
-                        {productData?.product.image ?
+                    {productData?.product.image ?
+                        <div className="relative pb-96">
                             <Image
                                 src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product?.image}/public`}
                                 className="bg-slate-500 object-center"
                                 layout="fill"
                                 quality={100}
+                                alt="product image"
+                                blurDataURL="https://i.ibb.co/ByhpsFY/blur.png"
                             //objectFit="cover"
                             />
-                            :
-                            <div className="h-96 bg-slate-500" />
-                        }
-                    </div>
+                        </div>
+                        :
+                        <div className="h-96 bg-slate-500" />
+                    }
                     <div className="flex items-center border-b border-t cursor-pointer space-x-3 py-4">
                         {productData?.product.user.avatar ?
                             <Image
-                                width={48}
-                                height={48}
                                 src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product?.user?.avatar}/avatar`}
                                 className="h-12 w-12 rounded-full bg-slate-400"
+                                width={48}
+                                height={48}
+                                blurDataURL="https://i.ibb.co/ByhpsFY/blur.png"
+                                alt="avatar image"
                             />
                             :
                             <div className="h-12 w-12 rounded-full bg-slate-400" />

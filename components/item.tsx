@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 interface ItemProps {
@@ -22,10 +23,14 @@ export default function Item({
             <a className="flex justify-between cursor-pointer space-x-3 py-2 px-4">
                 <div className="flex space-x-4">
                     {productImage.length > 0 ?
-                        <img
-                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productImage}/public`}
-                            className="w-20 h-20 bg-slate-500 rounded-md"
-                        />
+                        <div className="w-20 h-20 relative rounded-md">
+                            <Image
+                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productImage}/public`}
+                                layout="fill"
+                                objectFit="cover"
+                                alt="products"
+                            />
+                        </div>
                         :
                         <div className="w-20 h-20 bg-slate-500 rounded-md" />
                     }

@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useEffect } from "react";
 import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
+import useUser from "@libs/client/useUser";
+import Image from "next/image";
 
 interface AnswerWithUser extends Answer {
     user: User;
@@ -40,6 +42,7 @@ interface CommunityAnswerForm {
 }
 
 const CommunityDetail: NextPage = () => {
+    const { user } = useUser();
     const router = useRouter();
     const { register, handleSubmit, reset } = useForm<CommunityAnswerForm>();
     const { data: postData, mutate } = useSWR<CommunityPostResponse>(router.query.id ? `/api/posts/${router.query.id}` : null);
@@ -87,7 +90,17 @@ const CommunityDetail: NextPage = () => {
                     동네질문
                 </span>
                 <div className="flex mb-3 px-4 cursor-pointer pb-3  border-b items-center space-x-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-300" />
+                    {user?.avatar ?
+                        <Image
+                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${user.avatar}/avatar`}
+                            className="bg-slate-500 rounded-full"
+                            width={48}
+                            height={48}
+                            alt="avatar image"
+                        />
+                        :
+                        <div className="w-12 h-12 rounded-full bg-slate-300" />
+                    }
                     <div>
                         <p className="text-sm font-medium text-gray-700">{postData?.post?.user?.name}</p>
                         <Link href={`/users/profiles/${postData?.post?.user?.name}`}>
