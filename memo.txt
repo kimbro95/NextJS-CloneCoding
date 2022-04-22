@@ -1700,3 +1700,39 @@ module.exports = {
 }
 참조
 https://nextjs.org/docs/basic-features/image-optimization#domains
+
+
+
+########################
+### 16.3 Layout Fill ###
+########################
+-layout
+뷰포트의 크기가 변경될 때 이미지의 레이아웃 동작
+
+-layout options
+intrinsic (default): 이미지의 크기까지 컨테이너 너비에 맞게 축소
+fixed: 너비와 높이를 정확하게 사이즈
+responsive: 컨테이너 너비에 맞게 크기 조정
+fill(width와 height를 주지 않았을 때 줘야하는 속성): 컨테이너를 채우기 위해 x,y 축 모두에 성장
+참조
+https://nextjs.org/docs/api-reference/next/image#layout
+
+object-fit
+CSS object-fit 속성은 img나 video 요소와 같은 대체 요소와 같은 대체 요소의 콘텐츠 크기를
+어떤 방식으로 조절해 요소에 맞출 것인지 지정한다.
+object-position 속성을 사용해 대체 요소 콘텐츠가 콘텐츠 박스 내에 위치할 지점을 바꿀 수 있다.
+참조
+https://developer.mozilla.org/ko/docs/Web/CSS/object-fit
+
++ object-fit을 tailwind로도 줄 수 있지만 
+Image컴포넌트에서 제공하는 objectFit="cover"을 통해 줄 수도 있다.
+
+ex) <div class="relative pb-80">
+        <Image
+            alt="Mountains"
+            src="/mountains.jpg"
+            layout="fill"
+            ogjectFit="cover"
+            quality={100}
+        />
+    </div>
