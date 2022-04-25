@@ -139,9 +139,13 @@ const ItemDetail: NextPage = () => {
                                 <div key={product.id} className="cursor-pointer">
                                     {product.image.length > 0
                                         ?
-                                        <img
+                                        <Image
                                             src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${product.image}/public`}
                                             className="h-36 w-full mb-1 bg-slate-300"
+                                            width={234}
+                                            height={144}
+                                            quality={100}
+                                            alt="similar items"
                                         />
                                         :
                                         <div className="h-36 w-full mb-1 bg-slate-300" />
