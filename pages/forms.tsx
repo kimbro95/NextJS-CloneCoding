@@ -27,7 +27,6 @@ export default function Forms() {
     const onError = (err: FieldErrors) => {
         //console.log(err);
     }
-    console.log(errors);
     return (
         <form onSubmit={handleSubmit(onSubmit, onError)}>
             <input
