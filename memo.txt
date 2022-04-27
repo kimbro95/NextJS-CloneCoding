@@ -1764,3 +1764,24 @@ ex) <div class="relative pb-80">
 
 참조
 https://nextjs.org/docs/advanced-features/middleware#execution-order
+
+
+
+#######################################
+### 19.1 Responses and Redirections ###
+#######################################
+-Response
+미들웨어는 request가 완료되지 전에 코드를 실핼할 수 있기 때문에 Next.js에서 완전한 유연성을 제공한다.
+사용자의 수신 요청에 따라 rewriting, redirecting, 헤더 추가 또는 HTML 스트리밍을 통해 response를 수정할 수 있다.
+ex) 
+import type { NextRequest, NextFetchEvent } from "next/server";
+import { NextResponse } from "next/server";
+
+export function middleware(req: NextRequest, ev: NextFetchEvent) {
+    return new Response('this is middleware !!!");
+}
+
+참조
+Response (MDN)
+Fetch API의 response 인터페이스는 요청에 대한 응답을 나타냅니다.
+https://developer.mozilla.org/en-US/docs/Web/API/Response
