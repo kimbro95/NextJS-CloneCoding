@@ -481,6 +481,9 @@ pscale connect carrot-market
 연결시 나오는 URL을 .env 파일에 적용하기
 ex) DATABASE_URL="mysql://127.0.0.1.@@@@/DB NAME"
 
+PlanetScale 인증
+pscale auth login
+
 
 
 ###############################
@@ -1736,3 +1739,28 @@ ex) <div class="relative pb-80">
             quality={100}
         />
     </div>
+
+
+
+########################
+### 19.0 Middlewares ###
+########################
+-_middleware
+미들웨어가 /pages/_middleware.ts에 생성된 경우 /pages 디렉토리 내의 모든 경로에서 실행된다.
+▽pages
+    _middleware.ts  --> this middleware will run all routes under /pages
+    index.tsx
+    ...
+
+중첩 경로가 있는 하위 디렉토리가 있는 경우 미들웨어는 위에서 아래로 실행된다.
+▽pages
+    index.tsx
+▽profile
+    _middleware.ts --> 첫번째로 실행
+    about.tsx
+▽chats
+    _middleware.ts --> 두번째로 실행
+    [id].tsx
+
+참조
+https://nextjs.org/docs/advanced-features/middleware#execution-order
