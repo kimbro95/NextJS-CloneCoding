@@ -1803,7 +1803,8 @@ Dynamic Import를 사용 할 경우 사용자가 컴포넌트를 사용할때 �
 ex) import dynamic from 'next/dynamic'
     ex: basic
     const DynamicComponent = dynamic(() => import('../component/example'));
-    ex: with SSR
+    ex: with no SSR
+    항상 server side에 모듈을 포함하고 있는건 아니다. 예를 들어 브라우저에서만 작동하는 라이브러리가 포함된 경우라면 ssr : false를 통해 CSR로 실행 할 수 있다.
     const DynamicComponent = dynamic(() => import('../component/example'), { ssr : false });
 
     <div>
@@ -1811,3 +1812,24 @@ ex) import dynamic from 'next/dynamic'
     </div>
 참조
 https://nextjs.org/docs/advanced-features/dynamic-import
+
+
+
+##############################
+### 19.3 Lazy-load Imports ###
+##############################
+-With custom loading commponents
+dynamic 컴포넌트가 로도되는 동안 로드 상태를 렌더링하기 위해 선택적으로 로딩컴포넌트를 추가 할 수 있다.
+ex) const DynamicComponentWithCustomLoading = dynamic(() => import('../components/hello'),
+        { loading: () => <span>Loading...</span>}
+    );
+
+-With Suspense
+Suspense를 사용하면 React.lazy 및 React18의 Suspense와 유사한 컴포넌트를 자연로드(lazy-load)할 수 있다.
+fallback이 있는 클라이언트 측 또는 서버 측에서만 작동한다.
+ex) const DynamicComponent = dynamic(() => import('../component/example'), { suspense : true });
+    < Suspense fallback={`loading...`}>
+        <DynamicLazyComponent />
+    < /Suspense>
+참조
+https://nextjs.org/docs/advanced-features/dynamic-import#with-custom-loading-component
