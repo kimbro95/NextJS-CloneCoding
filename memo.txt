@@ -1785,3 +1785,29 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
 Response (MDN)
 Fetch API의 response 인터페이스는 요청에 대한 응답을 나타냅니다.
 https://developer.mozilla.org/en-US/docs/Web/API/Response
+
+
+
+############################
+### 19.2 Dynamic Imports ###
+############################
+-Dynamic Import
+Next.js는 JS용 ES2020 Dynamic import()를 지원한다.
+이를 통해 JS모듈을 동적으로 가져와서 작업할 수 있다.
+또한 SSR과 함께 작동한다. dynamic()은 React.lazy와 유사하게 사전 로드가 작동하도록 모듈의 최상위에 표시되어야 하므로
+React랜더링 내부에서 사용할 수 없다.
+
+보통의 경우는 상단에 import를 통해 컴포넌트를 불러온다.
+이럴경우 유저는 해당컴포넌트를 사용하지않아도 컴포넌트를 불러오는데
+Dynamic Import를 사용 할 경우 사용자가 컴포넌트를 사용할때 불러오게한다.
+ex) import dynamic from 'next/dynamic'
+    ex: basic
+    const DynamicComponent = dynamic(() => import('../component/example'));
+    ex: with SSR
+    const DynamicComponent = dynamic(() => import('../component/example'), { ssr : false });
+
+    <div>
+        <DynamicComponent />
+    </div>
+참조
+https://nextjs.org/docs/advanced-features/dynamic-import
