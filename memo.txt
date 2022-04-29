@@ -1856,8 +1856,24 @@ ex) import { Html, Head, Main, NextScript } from 'next/document'
         </Html>
         )
     }
+⭐⭐⭐ Custom Document는 서버에서 한번만 랜더링된다. ⭐⭐⭐
 참조
 https://nextjs.org/docs/advanced-features/custom-document
 
 Custom Document (Typescript)
 https://nextjs.org/docs/advanced-features/custom-document#typescript
+
+
+
+#############################
+### 19.5 Script Component ###
+#############################
+-Script Component
+Next.js Script 컴포넌트인 next/script는 HMTL script 태그의 확장이다.
+이를 통해 개발자는 애플리케이션에서 써드 파티 스크립트의 로드되는 우선 순위를 설정할 수 있으므로 
+개발자 시간을 절약하면서 로드하는 성능을 향상시킬 수 있다.
+
+afterInteractive: 페이지가 interactive 된 후에 로드( 기본값 )
+beforeInteractive: 페이지가 interactive 되기 전에 로드
+lazyOnload: 다른 모든 데이터나 소스를 불러온 후에 로드
+worker: web worker에 로드( 실험용? )
