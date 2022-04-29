@@ -1833,3 +1833,31 @@ ex) const DynamicComponent = dynamic(() => import('../component/example'), { sus
     < /Suspense>
 참조
 https://nextjs.org/docs/advanced-features/dynamic-import#with-custom-loading-component
+
+
+
+################################
+### 19.4 _document and Fonts ###
+################################
+-Custom Document
+Custom Document는 페이지를 랜더링하는데 사용되는 html 및 body 태그를 업데이트할 수 있다.
+이 파일은 서버에서만 랜더링되므로 onClick과 같은 이벤트 핸들러는 _document에서 사용할 수 없다.
+html, Head, Main 및 NextScript는 페이지가 제대로 렌더링되는데 필요하다.
+ex) import { Html, Head, Main, NextScript } from 'next/document'
+
+    export default function Document() {
+    return (
+        <Html>
+            <Head />
+            <body>
+                <Main />
+                <NextScript />
+            </body>
+        </Html>
+        )
+    }
+참조
+https://nextjs.org/docs/advanced-features/custom-document
+
+Custom Document (Typescript)
+https://nextjs.org/docs/advanced-features/custom-document#typescript
