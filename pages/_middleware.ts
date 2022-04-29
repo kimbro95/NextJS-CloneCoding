@@ -12,6 +12,12 @@ export function middleware(req:NextRequest, ev:NextFetchEvent){
             return NextResponse.redirect(new URL('/enter', req.url))
         }
     }
+    // 미들웨어를 통한 인증처리 세션에 데이터가 있을 경우 /enter 페이지로 접근시 / 메인 페이지로
+    if(!req.url.includes("/api")){
+        if(req.url.includes("/enter") && req.cookies.carrotsession){
+            return NextResponse.redirect(new URL('/', req.url))
+        }
+    }
     // geo를 통해 사용자의 위치정보를 알 수 있음
     //console.log(req.geo)
 }
