@@ -67,7 +67,7 @@ const LiveDetail: NextPage = () => {
         //sendMessage(form);
     }
     return (
-        <Layout canGoBack title="Live">
+        <Layout canGoBack title="Live" seoTitle="Stream">
             <div className="px-4 py-2 space-y-2 ">
                 <div className="w-full bg-slate-400 rounded-md shadow-md aspect-video" />
                 <h3 className="mt-2 font-bold text-gray-700 text-3xl">Live Streams...</h3>

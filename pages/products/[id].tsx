@@ -44,7 +44,7 @@ const ItemDetail: NextPage = () => {
         }
     }, [productData, favData, router]);
     return (
-        <Layout canGoBack>
+        <Layout canGoBack seoTitle="Product Detail">
             <div className="px-4 py-2">
                 <div className="mb-2">
                     {productData?.product.image ?

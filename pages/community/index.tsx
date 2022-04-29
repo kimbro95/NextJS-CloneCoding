@@ -24,7 +24,7 @@ const Community: NextPage = () => {
     const { data } = useSWR<PostsResponse>(latitude && longitude ? `/api/posts?latitude=${latitude}&longitude=${longitude}` : null);
 
     return (
-        <Layout title="동네생활" hasTabBar>
+        <Layout title="동네생활" hasTabBar seoTitle="Community">
             <div className="space-y-4 py-2">
                 {data?.posts?.map((post) => (
                     <Link href={`/community/${post.id}`} key={post.id}>

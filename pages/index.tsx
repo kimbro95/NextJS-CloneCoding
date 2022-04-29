@@ -35,7 +35,7 @@ const Home: NextPage = () => {
     setSize(page);
   }, [setSize, page]);
   return (
-      <Layout title="홈" hasTabBar>
+      <Layout title="홈" hasTabBar seoTitle="Products">
         <div className="flex flex-col space-y-4 divide-y-[1px]">
           {products?.map((product) => (
             <Item
