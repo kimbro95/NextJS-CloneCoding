@@ -1937,3 +1937,12 @@ Key-value --->  [unstable_serialize(getKey)]:
     };
 참조
 https://swr.vercel.app/docs/with-nextjs#pre-rendering-with-default-data
+
+
+
+#################################
+### 19.8 SSR + Authentication ###
+#################################
+getServerSideProps에는 context라는 데이터가 있다
+context 오브젝트의 데이터 타입은 NextPageContext
+getServerSideProps를 withSsrSession 함수로 한번 더 감싸서 인증 처리 
