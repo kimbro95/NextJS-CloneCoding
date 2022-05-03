@@ -1946,3 +1946,18 @@ https://swr.vercel.app/docs/with-nextjs#pre-rendering-with-default-data
 getServerSideProps에는 context라는 데이터가 있다
 context 오브젝트의 데이터 타입은 NextPageContext
 getServerSideProps를 withSsrSession 함수로 한번 더 감싸서 인증 처리 
+
+
+
+#########################
+### 19.9 Blog Section ###
+#########################
+-getStaticProps
+페이지에서 getStaticProps( 정적 사이트 생성 )라는 함수를 export하는 경우
+Next.js는 getStaticProps에서 반환된 props를 사용하여 빌드시 이 페이지를 미리 랜더링한다.
+ex) DB를 거치지 않고 md파일로 페이지를 작성할 때
+nomadcoders의 faq 페이지 
+https://nomadcoders.co/faq
+
+참조
+https://nextjs.org/docs/basic-features/data-fetching/get-static-props
