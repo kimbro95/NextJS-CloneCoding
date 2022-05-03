@@ -1961,3 +1961,30 @@ https://nomadcoders.co/faq
 
 참조
 https://nextjs.org/docs/basic-features/data-fetching/get-static-props
+
+
+
+############################
+### 19.10 getStaticProps ###
+############################
+-getStaticProps
+getStaticProps는 항상 서버에서 실행되고 클라이언트에서는 실행되지 않는다.
+getStaticProps는 정적 HTML을 생성하므로 들어오는 request( ex: 쿼리 매개변수 or HTTP헤더 )에 액세스할 수 없다.
+getStaticProps가 있는 페이지가 빌드시 미리 랜더링되면 페이지 HTML파일 외에도 Next.js가 getStaticProps 실행 결과를 포함하는 JSON파일을 생성한다.
+
+readdireSync()
+디렉토리(폴더)의 내용을 읽는다
+
+readFileSync()
+path의 내용을 반환
+
+참조
+https://nextjs.org/docs/basic-features/data-fetching/get-static-props
+
+gray-matter
+문자열 또는 파일에서 front-matter을 파싱한다.
+npm i gray-matter
+https://github.com/jonschlinkert/gray-matter
+
+⭐getServerSideProps : 유저의 요청이 발생할 때마다 일어남
+⭐getStaticProps : 페이지가 빌드되 Next.js가 해당 페이지를 export한 후 일반 html로 될때, 딱 한번만 실행된다.
