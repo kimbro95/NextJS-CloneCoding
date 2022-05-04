@@ -1988,3 +1988,20 @@ https://github.com/jonschlinkert/gray-matter
 
 ⭐getServerSideProps : 유저의 요청이 발생할 때마다 일어남
 ⭐getStaticProps : 페이지가 빌드되 Next.js가 해당 페이지를 export한 후 일반 html로 될때, 딱 한번만 실행된다.
+
+
+
+#####################################
+### 19.11 getStaticPaths part One ###
+#####################################
+-미들웨어( _middleware )
+중간에 request를 가로챈다.
+
+Server( getInitialProps 또는 getServerSideProps )
+런타임시 서버 사이드 랜더링
+
+Static( 초기 props를 사용하지 않음 )
+static HTML로 자동으로 랜더링된다.
+
+SSG( getStaticProps )
+static HTML + JSON으로 자동으로 생성된다.
