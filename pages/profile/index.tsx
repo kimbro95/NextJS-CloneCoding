@@ -1,4 +1,4 @@
-import { NextPage, NextPageContext } from "next";
+import { GetServerSideProps, NextPage, NextPageContext } from "next";
 import Link from "next/link";
 import Layout from "@components/layout";
 import useUser from "@libs/client/useUser";
@@ -174,7 +174,7 @@ const Page: NextPage<{ profile: User }> = ({ profile }) => {
     )
 }
 
-export const getServerSideProps = withSsrSession(async (
+export const getServerSideProps: GetServerSideProps = withSsrSession(async (
     //ctx: NextPageContext
     { req }: NextPageContext
 ) => {

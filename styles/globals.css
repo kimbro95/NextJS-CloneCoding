@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+body {
     -ms-overflow-style: none;
 }
+
 ::-webkit-scrollbar {
     display: none;
+}
+
+.blog-post-content h1 {
+    @apply text-violet-500 mb-5;
+}
+
+.blog-post-content ul {
+    @apply pl-20 list-disc;
 }
