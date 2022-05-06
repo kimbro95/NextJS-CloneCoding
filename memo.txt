@@ -2029,3 +2029,28 @@ ex) [slug].tsx
     }
 참조
 https://nextjs.org/docs/basic-features/data-fetching/get-static-paths
+
+
+
+#####################################
+### 19.13 Dynamic getStaticProps  ###
+#####################################
+-matter.read(filepath, options)
+파일 시스템에서 파일을 동기적으로 읽고, front matter를 파싱한다.
+matter()와 동일한 객체를 반환한다.
+filepath에는 읽을 파일의 경로를 지정한다.
+ex) const file = matter.read('./posts/@@@@.md');
+참조
+https://www.npmjs.com/package/gray-matter#read
+
+-remark-html
+HTML serializing 지원을 추가하는 remark 플러그인
+설치 
+$ npm i remark-html remark-parse unified
+
+ex) const file = await unified()
+        .use(remarkParse)
+        .use(remarkHtml)
+        .process(await read('example.md'))
+참조
+https://www.npmjs.com/package/remark-html
