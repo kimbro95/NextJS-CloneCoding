@@ -2070,3 +2070,24 @@ ex) function MyComponent() {
     }
 참조
 https://ko.reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
+
+
+
+###################
+### 19.15 Recap ###
+###################
+getStaticPaths는 언제 사용해야 하는지?
+동적 경로를 사용하는 페이지를 정적으로 pre-rendering하는 경우 getStaticPaths를 사용해야한다.
+-데이터를 헤드리스 CMS에서 가져올 때
+-데이터를 데이터베이스에서 가져올 때
+-데이터를 파일 시스템에서 가져올 때
+-데이터를 공개적으로 캐시할 수 있을 때
+-페이지는 SEO를 위해 pre-rendering되어야 하고 매우 빨라야 할 때
+getStaticProps는 성능을 위해 CDN에서 캐시할 수 있는 HTML 및 JSON 파일을 생성한다.
+참조
+https://nextjs.org/docs/basic-features/data-fetching/get-static-paths#when-should-i-use-getstaticpaths
+
+언제 실행되는지?
+getStaticPaths는 프로덕션 환경에서 빌드하는 동안에만 실행되며 런타임에는 호출되지 않는다.
+참조
+https://nextjs.org/docs/basic-features/data-fetching/get-static-paths#when-does-getstaticpaths-run
