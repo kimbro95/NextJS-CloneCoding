@@ -2115,3 +2115,24 @@ ex) export async function getStaticProps() {
     }
 참조
 https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration
+
+
+
+#########################
+### 20.2 ISR part Two ###
+#########################
+-ISR( Incremental Static Regeneration )
+빌드 타임때 pre-render된 페이지에 대한 요청이 이루어지면 처음에는 캐시된 페이지가 표시된다.
+1. 초기 요청 후 10초 이전에 페이지에 오는 모든 요청은 캐시되고, 즉각적으로 보여준다.
+2. 10초 후 다음 요청은 여전히 캐시된 페이지를 표시.
+3. Next.js는 백그라운드에서 페이지 regeneration을 트리거한다.
+4. 페이지가 성공적으로 생성되면 Next.js는 캐시를 무효화하고 업데이트된 페이지를 표시한다.
+백그라운드 regeneration이 실패하면 이전 페이지는 여전히 변경되지않는다.
+참조
+https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration
+
+-On-demand Revalidation (Beta)
+revalidation 시간을 60으로 설정하면 모든 방문자는 1분동안 동일한 버전의 사이트를 보게된다.
+캐시를 무효화하는 유일한 방법은 1분이 지난 후 누군가가 해당 페이지를 방문하는 것이다.
+참조
+https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation-beta
