@@ -2,8 +2,9 @@ import { NextPage } from "next";
 import Link from "next/link";
 import Layout from "@components/layout";
 import FloatingButton from "@components/floating-button";
-import useSWR from "swr";
 import { Post, User } from "@prisma/client";
+import client from "@libs/server/client";
+import useSWR from "swr";
 import useCoords from "@libs/client/useCoords";
 
 interface PostWithUser extends Post {
@@ -15,18 +16,19 @@ interface PostWithUser extends Post {
 }
 
 interface PostsResponse {
-    ok: boolean;
+    //ok: boolean;
     posts: PostWithUser[];
 }
 
-const Community: NextPage = () => {
+const Community: NextPage<PostsResponse> = ({ posts }) => {
+    /* ISR 사용을 위한 주석
     const { latitude, longitude } = useCoords();
     const { data } = useSWR<PostsResponse>(latitude && longitude ? `/api/posts?latitude=${latitude}&longitude=${longitude}` : null);
-
+    */
     return (
         <Layout title="동네생활" hasTabBar seoTitle="Community">
             <div className="space-y-4 py-2">
-                {data?.posts?.map((post) => (
+                {posts?.map((post) => (
                     <Link href={`/community/${post.id}`} key={post.id}>
                         <a key={post.id} className="flex flex-col items-start mx-4">
                             <span
@@ -102,5 +104,19 @@ const Community: NextPage = () => {
         </Layout>
     );
 };
+
+export async function getStaticProps(){
+    const posts = await client.post.findMany({
+        include: {
+            user: true,
+        },
+    });
+    return{
+        props:{
+            posts: JSON.parse(JSON.stringify(posts)),
+        },
+        revalidate: 20,
+    };
+}
 
 export default Community;
