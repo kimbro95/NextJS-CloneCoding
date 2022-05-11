@@ -2153,3 +2153,16 @@ https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regenera
 개발환경에서 On-demand Revalidation 사용할 경우
 참조
 https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#testing-on-demand-isr-during-development
+
+
+
+#########################
+### 20.4 Blocking SSG ###
+#########################
+-fallback: 'blocking'
+fallback이 'blocking'인 경우 getStaticPaths에서 반환되지 않은 새 경로는 SSR과 동일하게 HTML이 생성될 때까지 기다렸다가 이후 요청을 위해 캐시되어 path당 한번만 발생한다.
+fallback: 'blocking'은 기본적으로 생성된 페이지를 업데이트하지않는다.
+생성된 페이지를 업데이트하려면 fallback: 'blocking'과 함께 ISR을 사용해야한다.
+
+참조
+https://nextjs.org/docs/api-reference/data-fetching/get-static-paths#fallback-blocking

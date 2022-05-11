@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, GetStaticPaths, NextPage } from "next";
 import Button from "@components/button";
 import Layout from "@components/layout";
 import { useRouter } from "next/router";
@@ -9,6 +9,7 @@ import useMutation from "@libs/client/useMutation";
 import { cls } from "@libs/client/utils";
 import { useEffect } from "react";
 import Image from "next/image";
+import client from "@libs/server/client";
 
 interface ProductWithUser extends Product {
     user: User;
@@ -22,7 +23,7 @@ interface ItemDetailResponse {
     error: string;
 }
 
-const ItemDetail: NextPage = () => {
+const ItemDetail: NextPage<ItemDetailResponse> = ({ product, relatedProducts, isLiked }) => {
     const router = useRouter();
     const { mutate } = useSWRConfig();
     const { data: productData, mutate: boundMutate } = useSWR<ItemDetailResponse>(router.query.id ? `/api/products/${router.query.id}` : null);
@@ -47,10 +48,10 @@ const ItemDetail: NextPage = () => {
         <Layout canGoBack seoTitle="Product Detail">
             <div className="px-4 py-2">
                 <div className="mb-2">
-                    {productData?.product.image ?
+                    {product.image ?
                         <div className="relative pb-96">
                             <Image
-                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product?.image}/public`}
+                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${product?.image}/public`}
                                 className="bg-slate-500 object-center"
                                 layout="fill"
                                 quality={100}
@@ -63,9 +64,9 @@ const ItemDetail: NextPage = () => {
                         <div className="h-96 bg-slate-500" />
                     }
                     <div className="flex items-center border-b border-t cursor-pointer space-x-3 py-4">
-                        {productData?.product.user.avatar ?
+                        {product.user.avatar ?
                             <Image
-                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${productData?.product?.user?.avatar}/avatar`}
+                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${product?.user?.avatar}/avatar`}
                                 className="h-12 w-12 rounded-full bg-slate-400"
                                 width={48}
                                 height={48}
@@ -76,17 +77,17 @@ const ItemDetail: NextPage = () => {
                             <div className="h-12 w-12 rounded-full bg-slate-400" />
                         }
                         <div>
-                            <p className="text-md font-bold text-gray-800">{productData?.product?.user?.name}</p>
-                            <Link href={`/users/profiles/${productData?.product?.user?.name}`}>
+                            <p className="text-md font-bold text-gray-800">{product?.user?.name}</p>
+                            <Link href={`/users/profiles/${product?.user?.name}`}>
                                 <a className="text-xs font-medium text-gray-500">View profile &rarr;</a>
                             </Link>
                         </div>
                     </div>
                     <div className="mt-3 pb-4 border-b">
-                        <h1 className="text-3xl font-bold text-gray-800">{productData?.product?.name}</h1>
-                        <span className="block text-2xl text-gray-800">${productData?.product?.price}</span>
+                        <h1 className="text-3xl font-bold text-gray-800">{product?.name}</h1>
+                        <span className="block text-2xl text-gray-800">${product?.price}</span>
                         <p className="text-base my-4 text-gray-700">
-                            {productData?.product?.description}
+                            {product?.description}
                         </p>
                         <div className="flex items-center justify-between space-x-3">
                             <Button large text="Talk to seller" />
@@ -94,10 +95,10 @@ const ItemDetail: NextPage = () => {
                                 onClick={onFavClick}
                                 className={cls(
                                     "flex items-center justify-center p-2  rounded-md focus:outline-none focus:ring-offset-2 focus:ring-2 focus:ring-sky-500",
-                                    productData?.isLiked ? "text-red-400 hover:bg-red-200 hover:text-red-600" : "text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+                                    isLiked ? "text-red-400 hover:bg-red-200 hover:text-red-600" : "text-gray-400 hover:bg-gray-100 hover:text-gray-600"
                                 )}
                             >
-                                {productData?.isLiked ?
+                                {isLiked ?
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         className="h-6 w-6"
                                         viewBox="0 0 20 20"
@@ -132,7 +133,7 @@ const ItemDetail: NextPage = () => {
                 <div className="space-y-2">
                     <h2 className="text-2xl font-bold text-gray-900">Similar items</h2>
                     <div className="grid grid-cols-2 gap-3">
-                        {productData?.relatedProducts?.map((product) => (
+                        {relatedProducts?.map((product) => (
                             <Link href={`/products/${product.id}`} key={product.id} passHref>
                                 <div key={product.id} className="cursor-pointer">
                                     {product.image.length > 0
@@ -159,5 +160,61 @@ const ItemDetail: NextPage = () => {
         </Layout>
     );
 };
+
+export const getStaticPaths: GetStaticPaths = () => {
+    return {
+        paths: [],
+        fallback: "blocking",
+    }
+}
+
+export const getStaticProps: GetServerSideProps = async (ctx) => {
+    if (!ctx?.params?.id) {
+        return {
+            props: {},
+        }
+    }
+    const product = await client.product.findUnique({
+        where: {
+            id: +ctx.params.id,
+        },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    avatar: true,
+                },
+            },
+        },
+    });
+    const terms = product?.name.split(" ").map((word) => ({
+        name: {
+            contains: word,
+        },
+    }));
+    const relatedProducts = await client.product.findMany({
+        where: {
+            OR: terms,
+            AND: {
+                id: {
+                    not: +ctx.params.id,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+        take: 4,
+    });
+    const isLiked = false
+    return {
+        props: {
+            product: JSON.parse(JSON.stringify(product)),
+            relatedProducts: JSON.parse(JSON.stringify(relatedProducts)),
+            isLiked,
+        }
+    };
+}
 
 export default ItemDetail;
