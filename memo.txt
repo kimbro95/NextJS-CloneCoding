@@ -2136,3 +2136,20 @@ revalidation 시간을 60으로 설정하면 모든 방문자는 1분동안 동�
 캐시를 무효화하는 유일한 방법은 1분이 지난 후 누군가가 해당 페이지를 방문하는 것이다.
 참조
 https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation-beta
+
+
+
+###################################
+### 20.3 On Demand Revalidation ###
+###################################
+-On-demand Revalidation (Beta)
+revalidate가 생략되면 Next.js는 기본값인 false(재검증 없음)을 사용하고,
+unstable_revalidate()가 호출될 때 on-demand 페이지만 revalidate한다.
+
+ex) await res.unstable_revalidate('validate를 할 url');
+참조
+https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#on-demand-revalidation-beta
+
+개발환경에서 On-demand Revalidation 사용할 경우
+참조
+https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#testing-on-demand-isr-during-development

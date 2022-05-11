@@ -105,17 +105,21 @@ const Community: NextPage<PostsResponse> = ({ posts }) => {
     );
 };
 
-export async function getStaticProps(){
+export async function getStaticProps() {
+    console.log("check");
     const posts = await client.post.findMany({
         include: {
             user: true,
         },
+        orderBy: {
+            createdAt: "desc",
+        },
     });
-    return{
-        props:{
+    return {
+        props: {
             posts: JSON.parse(JSON.stringify(posts)),
         },
-        revalidate: 20,
+        //revalidate: 20,
     };
 }
 
