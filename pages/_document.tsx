@@ -1,16 +1,15 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import Script from "next/script";
 
-class CustomDocument extends Document{
-    render(): JSX.Element{
+class CustomDocument extends Document {
+    render(): JSX.Element {
         return (
             <Html lang="ko">
                 <Head>
-                    <link 
-                        href="https://fonts.googleapis.com/css2?family=Orelega+One&display=swap" 
+                    <link
+                        href="https://fonts.googleapis.com/css2?family=Orelega+One&display=swap"
                         rel="stylesheet"
                     />
-                    <Script 
+                    {/* <Script 
                         src="https://developers.kakao.com/sdk/js/kakao.js" 
                         strategy="lazyOnload"           // 다른 모든 데이터나 소스를 불러온 후에 로드
                         //strategy="beforeInteractive"  // 페이지가 interactive 되기 전에 로드
@@ -30,7 +29,7 @@ class CustomDocument extends Document{
                                 });
                             };
                         }}
-                    />
+                    /> */}
                 </Head>
                 <body>
                     <Main />

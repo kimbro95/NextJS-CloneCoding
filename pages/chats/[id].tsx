@@ -10,7 +10,7 @@ const ChatDetail: NextPage = () => {
                 <Message message="Hello World" />
                 <Message message="dlroW olleH" reversed />
                 <Message message="This is NextJS" />
-                <Input kind="text" />
+                {/* <Input kind="text" /> */}
             </div>
         </Layout>
     );
