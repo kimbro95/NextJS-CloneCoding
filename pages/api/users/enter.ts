@@ -50,9 +50,17 @@ async function handler(
         console.log(email);*/
     }
 
-    return res.json({
-        ok: true,
-    });
+    try {
+        return res.json({
+            ok: true,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error,
+        });
+    }
 }
 
 export default withHandler({

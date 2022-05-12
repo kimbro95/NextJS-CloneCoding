@@ -25,12 +25,18 @@ async function handler(
             },
         },
     });
-
-    res.json({
-        ok: true,
-        reviews,
-    });
-
+    try {
+        res.json({
+            ok: true,
+            reviews,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error,
+        });
+    }
 }
 
 export default withApiSession(

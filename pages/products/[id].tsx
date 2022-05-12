@@ -170,8 +170,8 @@ const ItemDetail: NextPage<ItemDetailResponse> = ({ product, relatedProducts, is
 export const getStaticPaths: GetStaticPaths = () => {
     return {
         paths: [],
-        //fallback: "blocking",
-        fallback: true,
+        fallback: "blocking",
+        //fallback: true,
     }
 }
 
@@ -195,6 +195,9 @@ export const getStaticProps: GetServerSideProps = async (ctx) => {
             },
         },
     });
+
+    if (!product) return { props: {} };
+
     const terms = product?.name.split(" ").map((word) => ({
         name: {
             contains: word,
@@ -215,7 +218,7 @@ export const getStaticProps: GetServerSideProps = async (ctx) => {
         take: 4,
     });
     const isLiked = false;
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    //await new Promise((resolve) => setTimeout(resolve, 5000));
     return {
         props: {
             product: JSON.parse(JSON.stringify(product)),

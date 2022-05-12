@@ -18,11 +18,18 @@ async function handler(
         }
     )).json();
 
-    res.json({
-        ok: true,
-        ...response.result,
-    });
-
+    try {
+        res.json({
+            ok: true,
+            ...response.result,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error,
+        });
+    }
 }
 
 export default withApiSession(

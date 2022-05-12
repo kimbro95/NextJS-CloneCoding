@@ -17,7 +17,6 @@ async function handler(
             id: cleandId,
         },
     });
-
     if (!product) {
         res.status(404).json({ ok: false, error: "Not found post" });
     } else {
@@ -52,9 +51,17 @@ async function handler(
             });
         }
 
-        res.json({
-            ok: true,
-        });
+        try {
+            res.json({
+                ok: true,
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
+            });
+        }
     }
 }
 

@@ -70,12 +70,21 @@ async function handler(
         });
         isLiked: Boolean(isLikedCount);
         */
-        res.json({
-            ok: true,
-            product,
-            isLiked,
-            relatedProducts,
-        });
+
+        try {
+            res.json({
+                ok: true,
+                product,
+                isLiked,
+                relatedProducts,
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
+            });
+        }
     }
 }
 

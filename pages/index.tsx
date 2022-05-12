@@ -40,65 +40,77 @@ const Home: NextPage = () => {
   }, [setSize, page]);
 
   return (
-      <Layout title="홈" hasTabBar seoTitle="Products">
-        <div className="flex flex-col space-y-4 divide-y-[1px]">
-          {products?.map((product) => (
-            <Item
-              id={product.id}
-              key={product.id}
-              title={product.name}
-              price={product.price}
-              comments={0}
-              hearts={product._count?.favs || 0}
-              productImage={product.image}
+    <Layout title="홈" hasTabBar seoTitle="Products">
+      <div className="flex flex-col space-y-4 divide-y-[1px]">
+        {products?.map((product) => (
+          <Item
+            id={product.id}
+            key={product.id}
+            title={product.name}
+            price={product.price}
+            comments={0}
+            hearts={product._count?.favs || 0}
+            productImage={product.image}
+          />
+        ))}
+        <FloatingButton href="/products/upload">
+          <svg
+            className="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
             />
-          ))}
-          <FloatingButton href="/products/upload">
-            <svg
-              className="h-6 w-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-              />
-            </svg>
-          </FloatingButton>
-        </div>
-      </Layout>
+          </svg>
+        </FloatingButton>
+      </div>
+    </Layout>
   );
 };
 
 const Page: NextPage<ProductsResponse> = ({ products, pages }) => {
   // unstable_serialize 사용
   // https://github.com/vercel/swr/issues/1520#issuecomment-933247768
-    return(
-      <SWRConfig
-        value={{
-          fallback: {
-            [unstable_serialize(getKey)]: [{
-              ok: true,
-              products,
-              pages,
-            },],
-          },
-        }}
-      >
-        <Home />
-      </SWRConfig>
-    )
+  return (
+    <SWRConfig
+      value={{
+        fallback: {
+          [unstable_serialize(getKey)]: [{
+            ok: true,
+            products,
+            pages,
+          },],
+        },
+      }}
+    >
+      <Home />
+    </SWRConfig>
+  )
 };
 
-export const getServerSideProps: GetServerSideProps = async() =>{
-  const products = await client.product.findMany({});
-  return{
-    props:{
+export const getServerSideProps: GetServerSideProps = async () => {
+  const products = await client.product.findMany({
+    include: {
+      _count: {
+        select: {
+          favs: true,
+        },
+      },
+    },
+    take: 10,
+    skip: 0,
+  });
+  if (!products) return { props: {} };
+
+  return {
+    props: {
       products: JSON.parse(JSON.stringify(products)),
     },
   };

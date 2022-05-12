@@ -14,10 +14,18 @@ async function handler(
             },
         });
 
-        res.json({
-            ok: true,
-            profile,
-        });
+        try {
+            res.json({
+                ok: true,
+                profile,
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
+            });
+        }
     }
 
     if (req.method === "POST") {
@@ -25,7 +33,7 @@ async function handler(
             session: { user },
             body: { email, phone, name, avatarId },
         } = req;
-
+        console.log("POST1");
         const currentUser = await client.user.findUnique({
             where: {
                 id: user?.id,
@@ -38,8 +46,16 @@ async function handler(
                     id: user?.id,
                 },
                 data: {
-                    phone
+                    name
                 },
+            });
+        }
+        try {
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
             });
         }
 
@@ -70,7 +86,14 @@ async function handler(
                     email
                 },
             });
-            res.json({ ok: true });
+        }
+        try {
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
+            });
         }
 
         if (phone && phone !== currentUser?.phone) {
@@ -102,6 +125,15 @@ async function handler(
                 },
             });
         }
+        try {
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
+            });
+        }
+
         if (avatarId) {
             await client.user.update({
                 where: {
@@ -112,7 +144,15 @@ async function handler(
                 },
             });
         }
-        res.json({ ok: true });
+        try {
+            res.json({ ok: true });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
+            });
+        }
     }
 }
 

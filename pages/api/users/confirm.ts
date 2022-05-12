@@ -37,7 +37,17 @@ async function handler(
             userId: exists.userId,
         },
     });
-    res.json({ ok: true });
+
+    try {
+        res.json({ ok: true });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            ok: false,
+            error,
+        });
+    }
+
 }
 
 export default withApiSession(withHandler({

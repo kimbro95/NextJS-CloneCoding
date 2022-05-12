@@ -64,11 +64,19 @@ async function handler(
             })
         );
 
-        res.json({
-            ok: true,
-            post,
-            isWondering,
-        });
+        try {
+            res.json({
+                ok: true,
+                post,
+                isWondering,
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                ok: false,
+                error,
+            });
+        }
     }
 }
 
