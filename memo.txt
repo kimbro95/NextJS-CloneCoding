@@ -2202,3 +2202,20 @@ ex) if (router.isFallback) {
     }
 참조
 https://nextjs.org/docs/api-reference/data-fetching/get-static-paths#fallback-pages
+
+
+
+#####################
+### 21.0 Suspense ###
+#####################
+-Suspense
+Suspense를 사용하면 컴포넌트가 렌더링되기 전까지 기다릴 수 있다.
+React 16.6버전부터 코드를 불러오는 동안 기다릴 수 있고, 기다리는 동안 로딩 상태를 지정할 수 있도록 
+< Suspense > 컴포넌트가 추가되었다.
+Suspense는 단순히 데이터 로딩뿐만 아니라 이미지, 스크립트, 비동기 작업을 기다리는 데에도 사용될 수 있다.
+ex) // ProfilePage를 불러오는 동안 Loading를 표시합니다
+    <Suspense fallback={< Loading / >}>
+        <ProfilePage />
+    </Suspense>
+참조
+https://ko.reactjs.org/docs/concurrent-mode-suspense.html

@@ -6,6 +6,7 @@ import useSWR, { SWRConfig } from "swr";
 import { Review, User } from "@prisma/client";
 import { cls } from "@libs/client/utils";
 import Image from "next/image";
+import { Suspense } from "react";
 import { withSsrSession } from "@libs/server/withSession";
 import client from "@libs/server/client";
 
@@ -18,32 +19,90 @@ interface ReviewsResponse {
     reviews: ReviewWithUser[];
 }
 
-const Profile: NextPage = () => {
-    const { user } = useUser();
+const Reviews = () => {
     const { data } = useSWR<ReviewsResponse>("/api/reviews");
 
+    return <>
+        {
+            data?.reviews.map((review) => (
+                <div key={review.id} className="mt-6 border-b pb-4 w-full">
+                    <div className="flex items-center space-x-4">
+                        {review?.createdBy.avatar
+                            ?
+                            <Image
+                                src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${review?.createdBy.avatar}/avatar`}
+                                className="w-12 h-12 bg-slate-500 rounded-full"
+                                width={48}
+                                height={48}
+                                alt="avatar image"
+                            />
+                            :
+                            <div className="w-12 h-12 bg-slate-500 rounded-full" />
+                        }
+                        <div>
+                            <h4 className="text-sm font-bold text-gray-700">{review.createdBy.name}</h4>
+                            <div className="flex items-center">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <svg
+                                        key={star}
+                                        className={cls(
+                                            "h-5 w-5",
+                                            review.score >= star
+                                                ? "text-yellow-400"
+                                                : "text-gray-400"
+                                        )}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                    </svg>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="px-2 mt-3 text-gray-700 text-sm">
+                        <p>{review.review}</p>
+                    </div>
+                </div>
+            ))
+        }
+    </>
+};
+
+const SmallProfile = () => {
+    const { user } = useUser();
+    return (
+        <div className="flex items-center space-x-3">
+            {user?.avatar ?
+                <Image
+                    src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${user.avatar}/avatar`}
+                    className="bg-slate-500 rounded-full"
+                    width={56}
+                    height={56}
+                    alt="avatar image"
+                />
+                :
+                <div className="w-14 h-14 bg-slate-500 rounded-full" />
+            }
+            <div className="flex flex-col">
+                <span className="font-bold text-gray-900">{user?.name}</span>
+                <Link href={`/profile/edit`}>
+                    <a className="text-sm text-gray-700">Edit profile &rarr;</a>
+                </Link>
+            </div>
+        </div>
+    );
+};
+
+const Profile: NextPage = () => {
     return (
         <Layout title='My Page' hasTabBar seoTitle="MyPage">
             <div className="py-4 px-4">
-                <div className="flex items-center space-x-3">
-                    {user?.avatar ?
-                        <Image
-                            src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${user.avatar}/avatar`}
-                            className="bg-slate-500 rounded-full"
-                            width={56}
-                            height={56}
-                            alt="avatar image"
-                        />
-                        :
-                        <div className="w-14 h-14 bg-slate-500 rounded-full" />
-                    }
-                    <div className="flex flex-col">
-                        <span className="font-bold text-gray-900">{user?.name}</span>
-                        <Link href={`/profile/edit`}>
-                            <a className="text-sm text-gray-700">Edit profile &rarr;</a>
-                        </Link>
-                    </div>
-                </div>
+                <Suspense fallback="Loading Profile...">
+                    <SmallProfile />
+                </Suspense>
                 <div className="mt-6 flex justify-around border-b pb-4">
                     <Link href="/profile/sold">
                         <a className="flex flex-col items-center">
@@ -109,55 +168,27 @@ const Profile: NextPage = () => {
                         <span className="mt-2 text-sm font-bold text-gray-700">관심목록</span>
                     </div>
                 </div>
-                {data?.reviews.map((review) => (
-                    <div key={review.id} className="mt-6 border-b pb-4 w-full">
-                        <div className="flex items-center space-x-4">
-                            {review?.createdBy.avatar
-                                ?
-                                <Image
-                                    src={`https://imagedelivery.net/jjkHUVzNHzk2FtCE-0VTSA/${review?.createdBy.avatar}/avatar`}
-                                    className="w-12 h-12 bg-slate-500 rounded-full"
-                                    width={48}
-                                    height={48}
-                                    alt="avatar image"
-                                />
-                                :
-                                <div className="w-12 h-12 bg-slate-500 rounded-full" />
-                            }
-                            <div>
-                                <h4 className="text-sm font-bold text-gray-700">{review.createdBy.name}</h4>
-                                <div className="flex items-center">
-                                    {[1, 2, 3, 4, 5].map((star) => (
-                                        <svg
-                                            key={star}
-                                            className={cls(
-                                                "h-5 w-5",
-                                                review.score >= star
-                                                    ? "text-yellow-400"
-                                                    : "text-gray-400"
-                                            )}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            aria-hidden="true"
-                                        >
-                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                        </svg>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="px-2 mt-3 text-gray-700 text-sm">
-                            <p>{review.review}</p>
-                        </div>
-                    </div>
-                ))}
+                <Suspense fallback="Loading Reviews...">
+                    <Reviews />
+                </Suspense>
             </div>
         </Layout >
     );
 }
 
-const Page: NextPage<{ profile: User }> = ({ profile }) => {
+const Page: NextPage = () => {
+    return (
+        <SWRConfig
+            value={{
+                suspense: true,
+            }}
+        >
+            <Profile />
+        </SWRConfig>
+    );
+};
+
+/* const Page: NextPage<{ profile: User }> = ({ profile }) => {
     return (
         <SWRConfig
             value={{
@@ -172,9 +203,9 @@ const Page: NextPage<{ profile: User }> = ({ profile }) => {
             <Profile />
         </SWRConfig>
     )
-}
+} */
 
-export const getServerSideProps: GetServerSideProps = withSsrSession(async (
+/* export const getServerSideProps: GetServerSideProps = withSsrSession(async (
     //ctx: NextPageContext
     { req }: NextPageContext
 ) => {
@@ -187,5 +218,5 @@ export const getServerSideProps: GetServerSideProps = withSsrSession(async (
         },
     }
 });
-
+ */
 export default Page;
