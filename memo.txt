@@ -2219,3 +2219,27 @@ ex) // ProfilePage를 불러오는 동안 Loading를 표시합니다
     </Suspense>
 참조
 https://ko.reactjs.org/docs/concurrent-mode-suspense.html
+
+
+
+##############################
+### 21.1 Server Components ###
+##############################
+-React Server Components (Alpha)
+Server Componentes를 사용하면 서버에서 React컴포넌트를 랜더링할 수 있다.
+이것은 서버에서 HTML을 미리 생성하는 서버측 랜더링(SSR)이랑은 다르다.
+서버 컴포넌트를 사용하면 "클라이언트 측 JS가 필요하지 않으므로" 페이지 랜더링이 빨라진다.
+이것은 서버 랜더링의 가장 좋은 부분을 클라이언트 측 상호 작용과 결합하여 응용 프로그램의 사용자 경험을 향상시킨다.
+참조
+https://nextjs.org/docs/advanced-features/react-18/server-components
+
+React Server Component 활성화
+next.config.js에 runtime, serverComponents추가
+module.exports = {
+    experimental: {
+        runtime: 'nodejs',
+        serverComponents: true,
+    },
+}
+참조
+https://nextjs.org/docs/advanced-features/react-18/server-components#enable-react-server-components
