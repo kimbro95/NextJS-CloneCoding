@@ -2254,3 +2254,16 @@ https://nextjs.org/docs/advanced-features/react-18/server-components#enable-reac
 클라이언트 컴포넌트의 경우 파일 이름에 .client.js를 추가    ex. /component/example.client.js
 참조
 https://nextjs.org/docs/advanced-features/react-18/server-components#server-components-conventions
+
+
+
+########################
+### 21.4 Parallelism ###
+########################
+-Promise.all()
+여러 프로미스들을 하나로 묶어 하나의 프로미스처럼 관리한다.
+여러 비동기 태스크를 순서에 상관없이 동시에 실행하는 경우 사용할 수 있다.
+여러 데이터들을 한번에 fetch할 때 사용하게되면 비동기 로직의 시간을 크게 줄일 수 있다.
+ex) Promise.all([p1, p2, p3])
+참조
+https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
