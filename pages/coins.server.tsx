@@ -1,20 +1,31 @@
 import { Suspense } from "react";
 
-let finished = false;
-function List(){
-    if(!finished){
-        throw Promise.all([
-            new Promise((resolve) => setTimeout(resolve, 5000)),
-            new Promise(resolve => {
-                finished = true;
-                resolve("");
-            })
-        ]);
+const cache: any = {};
+function fetchData(url: string) {
+    if (!cache[url]) {
+        throw fetch(url)
+            .then(res => res.json())
+            .then(json => cache[url] = json.slice(0, 20));
     }
-    return <ul>BTC</ul>;
+    return cache[url];
 }
-export default function Coins(){
-    return(
+
+function List() {
+    const coins = fetchData("https://api.coinpaprika.com/v1/coins");
+    //console.log(coins);
+    return (
+        <ul>
+            {coins.map((coin: any) => (
+                <li key={coin.id}>
+                    {coin.name} | {coin.symbol}
+                </li>
+            ))}
+        </ul>
+    );
+}
+
+export default function Coins() {
+    return (
         <div>
             <h1>Welcome to RSC</h1>
             <Suspense fallback="Loading...">
